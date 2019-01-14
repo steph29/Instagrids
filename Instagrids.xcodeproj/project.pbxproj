@@ -39,6 +39,41 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B103D67621E6A2B800F79780 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B1C8806B21DE7FF600F8FF21 /* Main.storyboard */,
+				B1C8807021DE7FF800F8FF21 /* LaunchScreen.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B103D67721E6A2CD00F79780 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B103D67821E6A2DA00F79780 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				B1C8806921DE7FF600F8FF21 /* ViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		B103D67921E6A30E00F79780 /* Files */ = {
+			isa = PBXGroup;
+			children = (
+				B1C8806721DE7FF600F8FF21 /* AppDelegate.swift */,
+				B1C8806E21DE7FF800F8FF21 /* Assets.xcassets */,
+				B1C8807A21DE911900F8FF21 /* Delm-Medium.otf */,
+				B1C8807921DE911900F8FF21 /* ThirstySoftRegular.otf */,
+			);
+			path = Files;
+			sourceTree = "<group>";
+		};
 		B1C8805B21DE7FF600F8FF21 = {
 			isa = PBXGroup;
 			children = (
@@ -58,13 +93,10 @@
 		B1C8806621DE7FF600F8FF21 /* Instagrids */ = {
 			isa = PBXGroup;
 			children = (
-				B1C8806721DE7FF600F8FF21 /* AppDelegate.swift */,
-				B1C8806921DE7FF600F8FF21 /* ViewController.swift */,
-				B1C8806B21DE7FF600F8FF21 /* Main.storyboard */,
-				B1C8807A21DE911900F8FF21 /* Delm-Medium.otf */,
-				B1C8807921DE911900F8FF21 /* ThirstySoftRegular.otf */,
-				B1C8806E21DE7FF800F8FF21 /* Assets.xcassets */,
-				B1C8807021DE7FF800F8FF21 /* LaunchScreen.storyboard */,
+				B103D67921E6A30E00F79780 /* Files */,
+				B103D67721E6A2CD00F79780 /* Model */,
+				B103D67621E6A2B800F79780 /* View */,
+				B103D67821E6A2DA00F79780 /* Controller */,
 				B1C8807321DE7FF800F8FF21 /* Info.plist */,
 			);
 			path = Instagrids;
