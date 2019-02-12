@@ -11,12 +11,13 @@ import UIKit
 class ViewController: UIViewController {
 
    
-    @IBOutlet weak var squareLowRight: UIImageView!
-    @IBOutlet weak var squareLowLeft: UIImageView!
-    @IBOutlet weak var rectangleHigh: UIImageView!
-    @IBOutlet weak var rectangleLow: UIImageView!
-    @IBOutlet weak var squareHighRight: UIImageView!
-    @IBOutlet weak var squareHighLeft: UIImageView!
+    
+    @IBOutlet weak var squareHighLeft: UIView!
+    @IBOutlet weak var squareHighRight: UIView!
+    @IBOutlet weak var squareLowLeft: UIView!
+    @IBOutlet weak var squareLowRight: UIView!
+    @IBOutlet weak var rectangleHigh: UIView!
+    @IBOutlet weak var rectangleLow: UIView!
     @IBOutlet weak var checkMarkButtonLeft: UIButton!
     @IBOutlet weak var checkMarkButtonMiddle: UIButton!
     @IBOutlet weak var checkMarkButtonRight: UIButton!
@@ -24,21 +25,18 @@ class ViewController: UIViewController {
 
  
     @IBAction func checkmarkLeft(_ sender: Any) {
-        ItemsHidden(button: checkMarkButtonMiddle, secondButton: checkMarkButtonRight, firstImage: squareHighRight, secondImage: squareHighLeft, thirdImage: rectangleLow)
+        ItemsHidden(firstButton: checkMarkButtonMiddle, secondButton: checkMarkButtonRight, firstImage: squareHighRight, secondImage: squareHighLeft, thirdImage: rectangleLow)
        
     }
     
-    private func ItemsHidden(button: UIButton, secondButton: UIButton, firstImage: UIImageView, secondImage: UIImageView, thirdImage: UIImageView){
-        button.imageView?.isHidden = true
+    private func ItemsHidden(firstButton: UIButton, secondButton: UIButton, firstImage: UIView, secondImage: UIView, thirdImage: UIView){
+        firstButton.imageView?.isHidden = true
         secondButton.imageView?.isHidden = true
         firstImage.isHidden = true
         secondImage.isHidden = true
-        thirdImage.isOpaque = true
+        thirdImage.isHidden = true
     }
     
-    private func RectangleHidden(rectangle: UIImageView){
-        rectangle.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 143, trailing: 0)
-    }
     override func viewDidLoad() {
         super.viewDidLoad()
         }
