@@ -9,8 +9,6 @@
 import UIKit
 
 class ViewController: UIViewController {
-
-   
     
     @IBOutlet weak var squareHighLeft: UIView!
     @IBOutlet weak var squareHighRight: UIView!
@@ -21,23 +19,58 @@ class ViewController: UIViewController {
     @IBOutlet weak var checkMarkButtonLeft: UIButton!
     @IBOutlet weak var checkMarkButtonMiddle: UIButton!
     @IBOutlet weak var checkMarkButtonRight: UIButton!
+    @IBOutlet weak var squareLowStackView: UIStackView!
+    @IBOutlet weak var squareHighStackView: UIStackView!
     
-
- 
-    @IBAction func checkmarkLeft(_ sender: Any) {
-        ItemsHidden(firstButton: checkMarkButtonMiddle, secondButton: checkMarkButtonRight, firstImage: squareHighRight, secondImage: squareHighLeft, thirdImage: rectangleLow)
-       
+    // MARK - defined checkMarkButton action
+    
+    @IBAction func checkMarkLeft(_ sender: Any) {
+        ItemsShowed(firstButton: checkMarkButtonLeft, firstImage: rectangleHigh, stackView: squareLowStackView)
+        ItemsHidden(firstButton: checkMarkButtonMiddle, secondButton: checkMarkButtonRight, firstImage: rectangleLow, stackView: squareHighStackView)
     }
     
-    private func ItemsHidden(firstButton: UIButton, secondButton: UIButton, firstImage: UIView, secondImage: UIView, thirdImage: UIView){
+    @IBAction func checkMarkMiddle(_ sender: Any) {
+        ItemsShowed(firstButton: checkMarkButtonMiddle, firstImage: rectangleLow, stackView: squareHighStackView)
+        ItemsHidden(firstButton: checkMarkButtonLeft, secondButton: checkMarkButtonRight, firstImage: rectangleHigh, stackView: squareLowStackView)
+    }
+    
+    @IBAction func checkMarkRight(_ sender: Any) {
+        ItemsShowedStackViewOnly(firstButton: checkMarkButtonMiddle, firstStackView: squareHighStackView, secondStackView: squareLowStackView)
+        ItemsHiddenStackViewOnly(firstButton: checkMarkButtonLeft, secondButton: checkMarkButtonMiddle, firstImage: rectangleLow, secondImage: rectangleHigh)
+    }
+    
+    private func ItemsShowedStackViewOnly(firstButton: UIButton,  firstStackView: UIStackView, secondStackView: UIStackView){
+        firstButton.imageView?.isHidden = false
+        firstStackView.isHidden = false
+        secondStackView.isHidden = false
+    }
+    
+    private func ItemsHiddenStackViewOnly(firstButton: UIButton, secondButton: UIButton,  firstImage: UIView, secondImage: UIView){
         firstButton.imageView?.isHidden = true
         secondButton.imageView?.isHidden = true
         firstImage.isHidden = true
         secondImage.isHidden = true
-        thirdImage.isHidden = true
+    }
+    
+    private func ItemsShowed(firstButton: UIButton,  firstImage: UIView, stackView: UIStackView){
+        firstButton.imageView?.isHidden = false
+        firstImage.isHidden = false
+        stackView.isHidden = false
+    }
+    
+    private func ItemsHidden(firstButton: UIButton, secondButton: UIButton,  firstImage: UIView, stackView: UIStackView){
+        firstButton.imageView?.isHidden = true
+        secondButton.imageView?.isHidden = true
+        firstImage.isHidden = true
+        stackView.isHidden = true
+        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        }
-            }
+        checkMarkLeft(self)
+    }
+    
+    // MARK -
+    
+}
