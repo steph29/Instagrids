@@ -85,8 +85,9 @@
                                                                 </subviews>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
+                                                                    <constraint firstAttribute="height" constant="127" id="4NL-gR-X0T"/>
                                                                     <constraint firstItem="rS1-oR-O7N" firstAttribute="centerY" secondItem="jEd-R4-M3K" secondAttribute="centerY" id="O2j-iP-PzF"/>
-                                                                    <constraint firstAttribute="width" secondItem="jEd-R4-M3K" secondAttribute="height" multiplier="1:1" id="QiG-5A-0tz"/>
+                                                                    <constraint firstAttribute="width" constant="127" id="PnU-mo-l2K"/>
                                                                     <constraint firstItem="rS1-oR-O7N" firstAttribute="centerX" secondItem="jEd-R4-M3K" secondAttribute="centerX" id="unl-ZO-qgC"/>
                                                                 </constraints>
                                                             </view>
@@ -100,9 +101,10 @@
                                                                 </subviews>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="width" secondItem="LjF-xV-anA" secondAttribute="height" multiplier="1:1" id="5GR-X1-IPh"/>
                                                                     <constraint firstItem="e2N-fQ-eVJ" firstAttribute="centerX" secondItem="LjF-xV-anA" secondAttribute="centerX" id="COW-A7-Ujq"/>
                                                                     <constraint firstItem="e2N-fQ-eVJ" firstAttribute="centerY" secondItem="LjF-xV-anA" secondAttribute="centerY" id="FHJ-Ke-XJm"/>
+                                                                    <constraint firstAttribute="width" constant="127" id="LRK-3f-YTx"/>
+                                                                    <constraint firstAttribute="height" constant="127" id="hD1-Ya-zLA"/>
                                                                 </constraints>
                                                             </view>
                                                         </subviews>
@@ -152,9 +154,8 @@
                                                     </stackView>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstAttribute="bottom" secondItem="Tza-JG-SM2" secondAttribute="bottom" constant="142" id="1GQ-Og-fKQ"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Tza-JG-SM2" secondAttribute="bottom" constant="142" id="1hP-fY-zRJ"/>
                                                     <constraint firstAttribute="height" constant="269" id="PWK-ou-0aR"/>
-                                                    <constraint firstItem="Z4n-d0-Dda" firstAttribute="top" secondItem="Tza-JG-SM2" secondAttribute="bottom" constant="15" id="S7E-Bq-7UZ"/>
                                                     <constraint firstItem="Z4n-d0-Dda" firstAttribute="top" secondItem="erM-7r-s8p" secondAttribute="top" constant="142" id="TwU-JL-yvb"/>
                                                 </constraints>
                                             </stackView>
@@ -168,6 +169,7 @@
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
+                                                    <constraint firstAttribute="width" constant="269" id="HdV-QD-wBy"/>
                                                     <constraint firstItem="IVg-FN-gdP" firstAttribute="centerY" secondItem="eGp-fP-Vk1" secondAttribute="centerY" id="JW6-fN-NqP"/>
                                                     <constraint firstAttribute="height" constant="127" id="jHS-zi-hCL"/>
                                                     <constraint firstItem="IVg-FN-gdP" firstAttribute="centerX" secondItem="eGp-fP-Vk1" secondAttribute="centerX" id="qFb-by-Xp4"/>
@@ -184,7 +186,9 @@
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstItem="oNp-aS-nqU" firstAttribute="centerY" secondItem="ZWB-j9-FNy" secondAttribute="centerY" id="1wg-JK-FYq"/>
+                                                    <constraint firstAttribute="height" constant="127" id="6EG-Cq-Wbe"/>
                                                     <constraint firstItem="oNp-aS-nqU" firstAttribute="centerX" secondItem="ZWB-j9-FNy" secondAttribute="centerX" id="QaQ-E6-Kca"/>
+                                                    <constraint firstAttribute="width" constant="269" id="jS7-W9-sDh"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
