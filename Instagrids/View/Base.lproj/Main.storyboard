@@ -131,7 +131,7 @@
                                                                         <rect key="frame" x="0.0" y="0.0" width="127" height="127"/>
                                                                         <state key="normal" image="Rectangle 3-3"/>
                                                                         <connections>
-                                                                            <action selector="prendrePhoto:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7Yg-Zs-39t"/>
+                                                                            <action selector="prendrePhoto1:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Iv4-dJ-ISQ"/>
                                                                         </connections>
                                                                     </button>
                                                                 </subviews>

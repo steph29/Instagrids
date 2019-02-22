@@ -103,7 +103,7 @@ func presentWithSource(_ source: UIImagePickerController.SourceType)  {
 }
 
 @IBAction func prendrePhoto(_ sender: UIButton) {
-    let alerteActionSheet = UIAlertController(title: "Prendre uns photo", message: "Choisissez le média", preferredStyle: .actionSheet)
+    let alerteActionSheet = UIAlertController(title: "Prendre un photo", message: "Choisissez le média", preferredStyle: .actionSheet)
     let camera = UIAlertAction(title: "Appareil photo", style: .default) { (action) in
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
             self.presentWithSource(.camera)
@@ -133,7 +133,6 @@ func presentWithSource(_ source: UIImagePickerController.SourceType)  {
 }
 }
 
-
 extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -148,6 +147,4 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
-    
 }
-
