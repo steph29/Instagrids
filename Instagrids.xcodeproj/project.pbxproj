@@ -14,6 +14,7 @@
 		B1C8807221DE7FF800F8FF21 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1C8807021DE7FF800F8FF21 /* LaunchScreen.storyboard */; };
 		B1C8807B21DE911900F8FF21 /* ThirstySoftRegular.otf in Resources */ = {isa = PBXBuildFile; fileRef = B1C8807921DE911900F8FF21 /* ThirstySoftRegular.otf */; };
 		B1C8807C21DE911900F8FF21 /* Delm-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = B1C8807A21DE911900F8FF21 /* Delm-Medium.otf */; };
+		B1FA9B64221FF44E0032E6FB /* Picture.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FA9B63221FF44E0032E6FB /* Picture.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		B1C8807321DE7FF800F8FF21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B1C8807921DE911900F8FF21 /* ThirstySoftRegular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ThirstySoftRegular.otf; sourceTree = "<group>"; };
 		B1C8807A21DE911900F8FF21 /* Delm-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Delm-Medium.otf"; sourceTree = "<group>"; };
+		B1FA9B63221FF44E0032E6FB /* Picture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Picture.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +53,7 @@
 		B103D67721E6A2CD00F79780 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				B1FA9B63221FF44E0032E6FB /* Picture.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -175,6 +178,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1FA9B64221FF44E0032E6FB /* Picture.swift in Sources */,
 				B1C8806A21DE7FF600F8FF21 /* ViewController.swift in Sources */,
 				B1C8806821DE7FF600F8FF21 /* AppDelegate.swift in Sources */,
 			);

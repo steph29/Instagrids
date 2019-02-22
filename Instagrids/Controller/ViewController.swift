@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class ViewController: UIViewController {
     
@@ -21,12 +22,17 @@ class ViewController: UIViewController {
     @IBOutlet weak var checkMarkButtonRight: UIButton!
     @IBOutlet weak var squareLowStackView: UIStackView!
     @IBOutlet weak var squareHighStackView: UIStackView!
+    @IBOutlet weak var imageViewChoisie: UIImageView!
+    @IBOutlet weak var RectangleHighButton: UIButton!
+    @IBOutlet weak var squareLowLeftButton: UIButton!
+
     
     // MARK - defined checkMarkButton action
     
     @IBAction func checkMarkLeft(_ sender: Any) {
         ItemsShowed(firstButton: checkMarkButtonLeft, firstImage: rectangleHigh, stackView: squareLowStackView)
         ItemsHidden(firstButton: checkMarkButtonMiddle, secondButton: checkMarkButtonRight, firstImage: rectangleLow, stackView: squareHighStackView)
+        
     }
     
     @IBAction func checkMarkMiddle(_ sender: Any) {
@@ -69,8 +75,79 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         checkMarkLeft(self)
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = true
     }
     
-    // MARK -
+    // MARK - Connection to the library
+    
+    
+    @IBAction func pendrePhoto(_ sender: UIButton) {
+        prendrePhoto(RectangleHighButton)
+    }
+    
+    @IBAction func prendrePhoto1(_ sender: Any) {
+        prendrePhoto(squareLowLeftButton)
+    }
+
+
+var imagePicker = UIImagePickerController()
+
+override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+}
+
+func presentWithSource(_ source: UIImagePickerController.SourceType)  {
+    imagePicker.sourceType = source
+    present(imagePicker, animated: true, completion: nil)
+}
+
+@IBAction func prendrePhoto(_ sender: UIButton) {
+    let alerteActionSheet = UIAlertController(title: "Prendre uns photo", message: "Choisissez le média", preferredStyle: .actionSheet)
+    let camera = UIAlertAction(title: "Appareil photo", style: .default) { (action) in
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            self.presentWithSource(.camera)
+        } else {
+            let alerte = UIAlertController(title: "Erreur", message: "Aucun appareil photo n'est disponible", preferredStyle: .alert)
+            let annuler = UIAlertAction(title: "Je comprends", style: .destructive, handler: nil)
+            alerte.addAction(annuler)
+            self.present(alerte, animated: true, completion: nil)
+        }
+        
+    }
+    let gallery = UIAlertAction(title: "Gallerie de photos", style: .default) { (action) in
+        self.presentWithSource(.photoLibrary)
+    }
+    let cancel = UIAlertAction(title: "Annuler", style: .cancel, handler: nil)
+    alerteActionSheet.addAction(camera)
+    alerteActionSheet.addAction(gallery)
+    alerteActionSheet.addAction(cancel)
+    
+    if let popover = alerteActionSheet.popoverPresentationController {
+        popover.sourceView = view
+        popover.sourceRect = CGRect(x: view.frame.midX, y: view.frame.midY, width: 0, height: 0)
+        popover.permittedArrowDirections = []
+    }
+    
+    present(alerteActionSheet, animated: true, completion: nil)
+}
+}
+
+
+extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let edite = info[.editedImage] as? UIImage {
+            imageViewChoisie.image = edite
+        } else if let originale = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            imageViewChoisie.image = originale
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
     
 }
+
