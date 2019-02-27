@@ -76,11 +76,10 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         checkMarkLeft(self)
         imagePicker.delegate = self
-        imagePicker.allowsEditing = true
+        imagePicker.allowsEditing = false
     }
     
     // MARK - Connection to the library
-    
     
     @IBAction func pendrePhoto(_ sender: UIButton) {
         prendrePhoto(RectangleHighButton)
@@ -89,48 +88,48 @@ class ViewController: UIViewController {
     @IBAction func prendrePhoto1(_ sender: Any) {
         prendrePhoto(squareLowLeftButton)
     }
-
-
-var imagePicker = UIImagePickerController()
-
-override func viewWillAppear(_ animated: Bool) {
-    super.viewWillAppear(animated)
-}
-
-func presentWithSource(_ source: UIImagePickerController.SourceType)  {
-    imagePicker.sourceType = source
-    present(imagePicker, animated: true, completion: nil)
-}
-
-@IBAction func prendrePhoto(_ sender: UIButton) {
-    let alerteActionSheet = UIAlertController(title: "Prendre un photo", message: "Choisissez le média", preferredStyle: .actionSheet)
-    let camera = UIAlertAction(title: "Appareil photo", style: .default) { (action) in
-        if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            self.presentWithSource(.camera)
-        } else {
-            let alerte = UIAlertController(title: "Erreur", message: "Aucun appareil photo n'est disponible", preferredStyle: .alert)
-            let annuler = UIAlertAction(title: "Je comprends", style: .destructive, handler: nil)
-            alerte.addAction(annuler)
-            self.present(alerte, animated: true, completion: nil)
+    
+    
+    var imagePicker = UIImagePickerController()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
+    func presentWithSource(_ source: UIImagePickerController.SourceType)  {
+        imagePicker.sourceType = source
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    @IBAction func prendrePhoto(_ sender: UIButton) {
+        let alerteActionSheet = UIAlertController(title: "Prendre un photo", message: "Choisissez le média", preferredStyle: .actionSheet)
+        let camera = UIAlertAction(title: "Appareil photo", style: .default) { (action) in
+            if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                self.presentWithSource(.camera)
+            } else {
+                let alerte = UIAlertController(title: "Erreur", message: "Aucun appareil photo n'est disponible", preferredStyle: .alert)
+                let annuler = UIAlertAction(title: "Je comprends", style: .destructive, handler: nil)
+                alerte.addAction(annuler)
+                self.present(alerte, animated: true, completion: nil)
+            }
+            
+        }
+        let gallery = UIAlertAction(title: "Gallerie de photos", style: .default) { (action) in
+            self.presentWithSource(.photoLibrary)
+        }
+        let cancel = UIAlertAction(title: "Annuler", style: .cancel, handler: nil)
+        alerteActionSheet.addAction(camera)
+        alerteActionSheet.addAction(gallery)
+        alerteActionSheet.addAction(cancel)
+        
+        if let popover = alerteActionSheet.popoverPresentationController {
+            popover.sourceView = view
+            popover.sourceRect = CGRect(x: view.frame.midX, y: view.frame.midY, width: 0, height: 0)
+            popover.permittedArrowDirections = []
         }
         
+        present(alerteActionSheet, animated: true, completion: nil)
     }
-    let gallery = UIAlertAction(title: "Gallerie de photos", style: .default) { (action) in
-        self.presentWithSource(.photoLibrary)
-    }
-    let cancel = UIAlertAction(title: "Annuler", style: .cancel, handler: nil)
-    alerteActionSheet.addAction(camera)
-    alerteActionSheet.addAction(gallery)
-    alerteActionSheet.addAction(cancel)
-    
-    if let popover = alerteActionSheet.popoverPresentationController {
-        popover.sourceView = view
-        popover.sourceRect = CGRect(x: view.frame.midX, y: view.frame.midY, width: 0, height: 0)
-        popover.permittedArrowDirections = []
-    }
-    
-    present(alerteActionSheet, animated: true, completion: nil)
-}
 }
 
 extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -148,3 +147,5 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
         dismiss(animated: true, completion: nil)
     }
 }
+
+
