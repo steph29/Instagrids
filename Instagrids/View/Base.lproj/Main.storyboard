@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -123,7 +123,7 @@
                                                             <view clipsSubviews="YES" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ms9-yn-CLA">
                                                                 <rect key="frame" x="0.0" y="0.0" width="127" height="127"/>
                                                                 <subviews>
-                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Agi-XK-m9N">
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Agi-XK-m9N">
                                                                         <rect key="frame" x="-0.66666666666665719" y="-0.33333333333331439" width="127" height="127"/>
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                     </imageView>
@@ -171,8 +171,8 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="269" id="PWK-ou-0aR"/>
                                                     <constraint firstItem="Z4n-d0-Dda" firstAttribute="top" secondItem="erM-7r-s8p" secondAttribute="top" constant="142" id="TwU-JL-yvb"/>
-                                                    <constraint firstItem="Z4n-d0-Dda" firstAttribute="top" secondItem="Tza-JG-SM2" secondAttribute="bottom" constant="15" id="Yd4-wo-O58"/>
-                                                    <constraint firstAttribute="bottom" secondItem="Tza-JG-SM2" secondAttribute="bottom" constant="142" id="aIE-1W-i8E"/>
+                                                    <constraint firstItem="Tza-JG-SM2" firstAttribute="bottom" secondItem="erM-7r-s8p" secondAttribute="bottom" constant="-142" id="aIE-1W-i8E"/>
+                                                    <constraint firstItem="Z4n-d0-Dda" firstAttribute="top" secondItem="Tza-JG-SM2" secondAttribute="bottom" constant="15" id="rbJ-bw-tzl"/>
                                                 </constraints>
                                             </stackView>
                                             <view clipsSubviews="YES" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="eGp-fP-Vk1">
@@ -185,7 +185,6 @@
                                                         <rect key="frame" x="110.33333333333334" y="39" width="48" height="49"/>
                                                         <state key="normal" image="Rectangle 3-3"/>
                                                         <connections>
-                                                            <action selector="pendrePhoto:" destination="BYZ-38-t0r" eventType="touchUpInside" id="NXg-qo-yVO"/>
                                                             <action selector="prendrePhoto:" destination="BYZ-38-t0r" eventType="touchUpInside" id="km5-7m-hRh"/>
                                                         </connections>
                                                     </button>
@@ -226,7 +225,7 @@
                                             <constraint firstAttribute="trailing" secondItem="erM-7r-s8p" secondAttribute="trailing" constant="19" id="6k5-vD-Q7t"/>
                                             <constraint firstAttribute="trailing" secondItem="eGp-fP-Vk1" secondAttribute="trailing" constant="19" id="FH2-pK-gKF"/>
                                             <constraint firstItem="ZWB-j9-FNy" firstAttribute="leading" secondItem="X8L-b5-j5P" secondAttribute="leading" constant="19" id="JU5-Gh-Huc"/>
-                                            <constraint firstItem="ZWB-j9-FNy" firstAttribute="top" secondItem="eGp-fP-Vk1" secondAttribute="bottom" constant="15" id="JpA-wL-Xog"/>
+                                            <constraint firstItem="ZWB-j9-FNy" firstAttribute="top" secondItem="erM-7r-s8p" secondAttribute="bottom" constant="-127" id="JpA-wL-Xog"/>
                                             <constraint firstItem="WIf-Lm-gwC" firstAttribute="leading" secondItem="X8L-b5-j5P" secondAttribute="leading" id="KUj-H2-26O"/>
                                             <constraint firstItem="eGp-fP-Vk1" firstAttribute="leading" secondItem="X8L-b5-j5P" secondAttribute="leading" constant="19" id="SWl-gd-Qwv"/>
                                             <constraint firstItem="erM-7r-s8p" firstAttribute="top" secondItem="X8L-b5-j5P" secondAttribute="top" constant="15" id="T5P-H9-4lV"/>

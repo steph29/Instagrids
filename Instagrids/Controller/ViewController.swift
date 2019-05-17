@@ -25,7 +25,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var imageViewChoisie: UIImageView!
     @IBOutlet weak var RectangleHighButton: UIButton!
     @IBOutlet weak var squareLowLeftButton: UIButton!
-
+    var imagePicker = UIImagePickerController()
+    var captureButton = CaptureButton()
     
     // MARK - defined checkMarkButton action
     
@@ -45,6 +46,7 @@ class ViewController: UIViewController {
         ItemsHiddenStackViewOnly(firstButton: checkMarkButtonLeft, secondButton: checkMarkButtonMiddle, firstImage: rectangleLow, secondImage: rectangleHigh)
     }
     
+    // Mark - function to change the format of the picture
     private func ItemsShowedStackViewOnly(firstButton: UIButton,  firstStackView: UIStackView, secondStackView: UIStackView){
         firstButton.imageView?.isHidden = false
         firstStackView.isHidden = false
@@ -81,28 +83,26 @@ class ViewController: UIViewController {
     
     // MARK - Connection to the library
     
-    @IBAction func pendrePhoto(_ sender: UIButton) {
-        prendrePhoto(RectangleHighButton)
-    }
-    
     @IBAction func prendrePhoto1(_ sender: Any) {
         prendrePhoto(squareLowLeftButton)
     }
-    
-    
-    var imagePicker = UIImagePickerController()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
     
-    func presentWithSource(_ source: UIImagePickerController.SourceType)  {
+   func presentWithSource(_ source: UIImagePickerController.SourceType)  {
         imagePicker.sourceType = source
         present(imagePicker, animated: true, completion: nil)
     }
+ 
     
     @IBAction func prendrePhoto(_ sender: UIButton) {
-        let alerteActionSheet = UIAlertController(title: "Prendre un photo", message: "Choisissez le média", preferredStyle: .actionSheet)
+        caputurePicture()
+    }
+    
+    func caputurePicture() {
+       let alerteActionSheet = UIAlertController(title: "Prendre un photo", message: "Choisissez le média", preferredStyle: .actionSheet)
         let camera = UIAlertAction(title: "Appareil photo", style: .default) { (action) in
             if UIImagePickerController.isSourceTypeAvailable(.camera) {
                 self.presentWithSource(.camera)
@@ -147,5 +147,7 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
         dismiss(animated: true, completion: nil)
     }
 }
+
+
 
 
