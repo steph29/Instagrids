@@ -11,6 +11,8 @@ import AVFoundation
 
 class ViewController: UIViewController {
     
+    
+    @IBOutlet weak var imageViewtag3: UIImageView!
     @IBOutlet weak var squareHighLeft: UIView!
     @IBOutlet weak var squareHighRight: UIView!
     @IBOutlet weak var squareLowLeft: UIView!
@@ -22,11 +24,17 @@ class ViewController: UIViewController {
     @IBOutlet weak var checkMarkButtonRight: UIButton!
     @IBOutlet weak var squareLowStackView: UIStackView!
     @IBOutlet weak var squareHighStackView: UIStackView!
-    @IBOutlet weak var imageViewChoisie: UIImageView!
     @IBOutlet weak var RectangleHighButton: UIButton!
-    @IBOutlet weak var squareLowLeftButton: UIButton!
     var imagePicker = UIImagePickerController()
-    var captureButton = CaptureButton()
+    var imageChoisie = UIImageView()
+    var tagBool: Bool = false
+    
+    // TEST
+    func test()  -> UIView {
+       let tagInt =  rectangleLow.viewWithTag(imageViewtag3.tag)!
+        
+        return tagInt
+    }
     
     // MARK - defined checkMarkButton action
     
@@ -82,27 +90,47 @@ class ViewController: UIViewController {
     }
     
     // MARK - Connection to the library
+    @IBAction func prendrePhoto11(_ sender: Any) {
+        imageChoisie = squareHighLeft.viewWithTag(1) as! UIImageView
+        capturePicture()
+    }
+    
+    @IBAction func prendrePhoto2(_ sender: Any) {
+        imageChoisie = squareHighRight.viewWithTag(2) as! UIImageView
+        capturePicture()
+    }
     
     @IBAction func prendrePhoto1(_ sender: Any) {
-        prendrePhoto(squareLowLeftButton)
+        imageChoisie = squareLowLeft.viewWithTag(3) as! UIImageView
+        capturePicture()
+        }
+    
+    @IBAction func prendrePhoto4(_ sender: Any) {
+        imageChoisie = squareLowRight.viewWithTag(4) as! UIImageView
+        capturePicture()
     }
+    @IBAction func prendrePhoto5(_ sender: Any) {
+        imageChoisie = rectangleHigh.viewWithTag(5) as! UIImageView
+        capturePicture()
+    }
+    @IBAction func prendrePhoto6(_ sender: Any) {
+        imageChoisie = rectangleLow.viewWithTag(6) as! UIImageView
+        capturePicture()
+    }
+    
+  
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
     
-   func presentWithSource(_ source: UIImagePickerController.SourceType)  {
+    func presentWithSource(_ source: UIImagePickerController.SourceType)  {
         imagePicker.sourceType = source
         present(imagePicker, animated: true, completion: nil)
     }
- 
     
-    @IBAction func prendrePhoto(_ sender: UIButton) {
-        caputurePicture()
-    }
-    
-    func caputurePicture() {
-       let alerteActionSheet = UIAlertController(title: "Prendre un photo", message: "Choisissez le média", preferredStyle: .actionSheet)
+    func capturePicture() {
+        let alerteActionSheet = UIAlertController(title: "Prendre un photo", message: "Choisissez le média", preferredStyle: .actionSheet)
         let camera = UIAlertAction(title: "Appareil photo", style: .default) { (action) in
             if UIImagePickerController.isSourceTypeAvailable(.camera) {
                 self.presentWithSource(.camera)
@@ -130,15 +158,16 @@ class ViewController: UIViewController {
         
         present(alerteActionSheet, animated: true, completion: nil)
     }
+    
 }
 
 extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let edite = info[.editedImage] as? UIImage {
-            imageViewChoisie.image = edite
+            imageChoisie.image = edite
         } else if let originale = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            imageViewChoisie.image = originale
+            imageChoisie.image = originale
         }
         dismiss(animated: true, completion: nil)
     }

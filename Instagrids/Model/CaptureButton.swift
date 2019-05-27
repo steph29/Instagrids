@@ -9,8 +9,5 @@
 import UIKit
 import AVFoundation
 
-class CaptureButton: UIViewController {
-    
-
-    
+class CaptureButton : ViewController {
 }
