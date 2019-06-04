@@ -84,8 +84,10 @@ class ViewController: UIViewController {
         checkMarkLeft(self)
         imagePicker.delegate = self
         imagePicker.allowsEditing = false
-        UIView.animate(withDuration: 0.5) {
-        self.viewSwiped.center.x += self.view.bounds.width
+        UIView.animate(withDuration: 0.6) {
+       
+            
+            self.viewSwiped.center.x += self.view.bounds.width
         self.labelSwipeView.center.x -= self.view.bounds.width
         self.checkMarkButtonRight.center.x += self.view.bounds.width
             UIView.animate(withDuration: 0.5, delay: 0.3, options: [],
