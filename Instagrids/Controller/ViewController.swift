@@ -11,7 +11,8 @@ import AVFoundation
 
 class ViewController: UIViewController {
     
-    
+    @IBOutlet weak var labelSwipeView: UIStackView!
+    @IBOutlet weak var viewSwiped: UIView!
     @IBOutlet weak var imageViewtag3: UIImageView!
     @IBOutlet weak var squareHighLeft: UIView!
     @IBOutlet weak var squareHighRight: UIView!
@@ -29,13 +30,6 @@ class ViewController: UIViewController {
     var imageChoisie = UIImageView()
     var tagBool: Bool = false
     
-    // TEST
-    func test()  -> UIView {
-       let tagInt =  rectangleLow.viewWithTag(imageViewtag3.tag)!
-        
-        return tagInt
-    }
-    
     // MARK - defined checkMarkButton action
     
     @IBAction func checkMarkLeft(_ sender: Any) {
@@ -46,7 +40,10 @@ class ViewController: UIViewController {
     
     @IBAction func checkMarkMiddle(_ sender: Any) {
         ItemsShowed(firstButton: checkMarkButtonMiddle, firstImage: rectangleLow, stackView: squareHighStackView)
-        ItemsHidden(firstButton: checkMarkButtonLeft, secondButton: checkMarkButtonRight, firstImage: rectangleHigh, stackView: squareLowStackView)
+        checkMarkButtonLeft.imageView?.isHidden = true
+        checkMarkButtonRight.imageView?.isHidden = true
+        rectangleHigh.isHidden = true
+        // ItemsHidden(firstButton: checkMarkButtonLeft, secondButton: checkMarkButtonRight, firstImage: rectangleHigh, stackView: squareLowStackView)
     }
     
     @IBAction func checkMarkRight(_ sender: Any) {
@@ -87,8 +84,22 @@ class ViewController: UIViewController {
         checkMarkLeft(self)
         imagePicker.delegate = self
         imagePicker.allowsEditing = false
+        UIView.animate(withDuration: 0.5) {
+        self.viewSwiped.center.x += self.view.bounds.width
+        self.labelSwipeView.center.x -= self.view.bounds.width
+        self.checkMarkButtonRight.center.x += self.view.bounds.width
+            UIView.animate(withDuration: 0.5, delay: 0.3, options: [],
+                           animations: {
+                            self.checkMarkButtonMiddle.center.x += self.view.bounds.width
+                            UIView.animate(withDuration: 0.5, delay: 0.6, options: [], animations: {
+                                self.checkMarkButtonLeft.center.x += self.view.bounds.width
+                            }, completion: nil)
+                                        },
+                           completion: nil
+            )
+        }
     }
-    
+  
     // MARK - Connection to the library
     @IBAction func prendrePhoto11(_ sender: Any) {
         imageChoisie = squareHighLeft.viewWithTag(1) as! UIImageView
@@ -117,13 +128,7 @@ class ViewController: UIViewController {
         imageChoisie = rectangleLow.viewWithTag(6) as! UIImageView
         capturePicture()
     }
-    
-  
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    
+ 
     func presentWithSource(_ source: UIImagePickerController.SourceType)  {
         imagePicker.sourceType = source
         present(imagePicker, animated: true, completion: nil)
@@ -160,6 +165,7 @@ class ViewController: UIViewController {
     }
     
 }
+
 
 extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
