@@ -11,6 +11,7 @@ import AVFoundation
 
 class ViewController: UIViewController {
     
+    @IBOutlet weak var buttonImageHighLeft: UIButton!
     @IBOutlet weak var buttonLowLeft: UIButton!
     @IBOutlet weak var labelSwipeView: UIStackView!
     @IBOutlet weak var viewSwiped: UIView!
@@ -69,7 +70,6 @@ class ViewController: UIViewController {
         imagePicker.allowsEditing = false
         UIView.animate(withDuration: 0.5) {
         self.viewSwiped.center.x += self.view.bounds.width
-        self.labelSwipeView.center.x -= self.view.bounds.width
         self.checkMarkButtonRight.center.x += self.view.bounds.width
             UIView.animate(withDuration: 0.5, delay: 0.3, options: [],
                            animations: {
@@ -82,11 +82,39 @@ class ViewController: UIViewController {
             )
         }
     }
-  
+    
+    @IBAction func handlePan(recognizer:UIPanGestureRecognizer) {
+        
+            
+        let translation = recognizer.translation(in: self.view)
+        if let view = recognizer.view {
+            view.center = CGPoint(x:view.center.x,
+                                  y:view.center.y + translation.y)
+        }
+        recognizer.setTranslation(CGPoint.zero, in: self.view)
+        
+        if recognizer.state == .ended {
+            UIView.animate(withDuration: 0.3) {
+                recognizer.view!.center.y =  recognizer.view!.bounds.height + 110
+            }
+            handlePan()
+            
+        }
+    }
+    func handlePan() {
+    UIGraphicsBeginImageContext(viewSwiped.bounds.size)
+    viewSwiped.layer.render(in: UIGraphicsGetCurrentContext()!)
+    guard let image = UIGraphicsGetImageFromCurrentImageContext() else { return }
+    UIGraphicsEndImageContext()
+    
+    let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+    present(activityViewController, animated: true, completion: nil)
+}
     // MARK - Connection to the library
     @IBAction func prendrePhoto11(_ sender: Any) {
         imageChoisie = squareHighLeft.viewWithTag(1) as! UIImageView
         capturePicture()
+    
     }
     
     @IBAction func prendrePhoto2(_ sender: Any) {
@@ -137,7 +165,9 @@ class ViewController: UIViewController {
         }
         
         present(alerteActionSheet, animated: true, completion: nil)
+        
     }
+    
     
 }
 
