@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import AVFoundation
+
 
 class CaptureButton : ViewController {
 }

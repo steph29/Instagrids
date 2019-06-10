@@ -15,7 +15,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var buttonLowLeft: UIButton!
     @IBOutlet weak var labelSwipeView: UIStackView!
     @IBOutlet weak var viewSwiped: UIView!
-    @IBOutlet weak var imageViewtag3: UIImageView!
     @IBOutlet weak var squareHighLeft: UIView!
     @IBOutlet weak var squareHighRight: UIView!
     @IBOutlet weak var squareLowLeft: UIView!
@@ -50,6 +49,16 @@ class ViewController: UIViewController {
     }
     
     // Mark - function to change the format of the picture
+    private func StackViewShowed(firstStackView: UIStackView, secondStackView: UIStackView){
+        firstStackView.isHidden = false
+        firstStackView.isHidden = false
+    }
+    
+    private func StackViewHidden(firstStackView: UIStackView, secondStackView: UIStackView) {
+        firstStackView.isHidden = true
+        firstStackView.isHidden = true
+
+    }
     private func ItemsShowed(firstButton: UIButton,  firstImage: UIView, secondImage: UIView){
         firstButton.imageView?.isHidden = false
         firstImage.isHidden = false
@@ -69,23 +78,22 @@ class ViewController: UIViewController {
         imagePicker.delegate = self
         imagePicker.allowsEditing = false
         UIView.animate(withDuration: 0.5) {
-        self.viewSwiped.center.x += self.view.bounds.width
-        self.checkMarkButtonRight.center.x += self.view.bounds.width
+            self.viewSwiped.center.x += self.view.bounds.width
+            self.checkMarkButtonRight.center.x += self.view.bounds.width
             UIView.animate(withDuration: 0.5, delay: 0.3, options: [],
                            animations: {
                             self.checkMarkButtonMiddle.center.x += self.view.bounds.width
                             UIView.animate(withDuration: 0.5, delay: 0.6, options: [], animations: {
                                 self.checkMarkButtonLeft.center.x += self.view.bounds.width
                             }, completion: nil)
-                                        },
+            },
                            completion: nil
             )
         }
     }
     
+    // MARK - Animation and Share
     @IBAction func handlePan(recognizer:UIPanGestureRecognizer) {
-        
-            
         let translation = recognizer.translation(in: self.view)
         if let view = recognizer.view {
             view.center = CGPoint(x:view.center.x,
@@ -101,20 +109,23 @@ class ViewController: UIViewController {
             
         }
     }
-    func handlePan() {
-    UIGraphicsBeginImageContext(viewSwiped.bounds.size)
-    viewSwiped.layer.render(in: UIGraphicsGetCurrentContext()!)
-    guard let image = UIGraphicsGetImageFromCurrentImageContext() else { return }
-    UIGraphicsEndImageContext()
     
-    let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
-    present(activityViewController, animated: true, completion: nil)
-}
+    // function to share the content
+    func handlePan() {
+        UIGraphicsBeginImageContext(viewSwiped.bounds.size)
+        viewSwiped.layer.render(in: UIGraphicsGetCurrentContext()!)
+        guard let image = UIGraphicsGetImageFromCurrentImageContext() else { return }
+        UIGraphicsEndImageContext()
+        
+        let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+        present(activityViewController, animated: true, completion: nil)
+    }
     // MARK - Connection to the library
     @IBAction func prendrePhoto11(_ sender: Any) {
         imageChoisie = squareHighLeft.viewWithTag(1) as! UIImageView
         capturePicture()
-    
+        buttonImageHighLeft.is = true
+        
     }
     
     @IBAction func prendrePhoto2(_ sender: Any) {
@@ -125,13 +136,13 @@ class ViewController: UIViewController {
     @IBAction func prendrePhoto1(_ sender: Any) {
         imageChoisie = squareLowLeft.viewWithTag(3) as! UIImageView
         capturePicture()
-        }
+    }
     
     @IBAction func prendrePhoto4(_ sender: Any) {
         imageChoisie = squareLowRight.viewWithTag(4) as! UIImageView
         capturePicture()
     }
- 
+    
     func presentWithSource(_ source: UIImagePickerController.SourceType)  {
         imagePicker.sourceType = source
         present(imagePicker, animated: true, completion: nil)
@@ -181,6 +192,7 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
             imageChoisie.image = originale
         }
         dismiss(animated: true, completion: nil)
+
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {

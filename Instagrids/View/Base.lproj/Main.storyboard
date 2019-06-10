@@ -90,38 +90,28 @@
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="845-lm-keK">
                                                                         <rect key="frame" x="0.0" y="0.0" width="127.33333333333333" height="128"/>
                                                                     </imageView>
-                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bFV-cj-F1r">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="127.33333333333333" height="128"/>
-                                                                        <connections>
-                                                                            <action selector="prendrePhoto12:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zym-oI-bLh"/>
-                                                                        </connections>
-                                                                    </button>
-                                                                    <button opaque="NO" tag="1" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rS1-oR-O7N">
-                                                                        <rect key="frame" x="39.666666666666664" y="39.333333333333314" width="47.999999999999993" height="49"/>
+                                                                    <button opaque="NO" multipleTouchEnabled="YES" tag="1" contentMode="scaleAspectFit" restorationIdentifier="LeftHighButton" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4AS-aR-wWS">
+                                                                        <rect key="frame" x="39.666666666666664" y="39.333333333333314" width="47.999999999999993" height="49.000000000000014"/>
                                                                         <constraints>
-                                                                            <constraint firstAttribute="width" constant="48" id="3xM-VK-bDC"/>
-                                                                            <constraint firstAttribute="height" constant="49" id="DEk-DM-ojm"/>
+                                                                            <constraint firstAttribute="height" constant="49" id="KSf-sU-r0c"/>
+                                                                            <constraint firstAttribute="width" constant="48" id="fwe-LU-3tM"/>
                                                                         </constraints>
-                                                                        <state key="normal" image="Rectangle 3-3"/>
+                                                                        <state key="normal" backgroundImage="Rectangle 3-3"/>
                                                                         <connections>
-                                                                            <action selector="prendrePhoto11:" destination="BYZ-38-t0r" eventType="touchUpInside" id="s0P-jc-jd5"/>
+                                                                            <action selector="prendrePhoto11:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qST-gW-89T"/>
                                                                         </connections>
                                                                     </button>
                                                                 </subviews>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="128" id="03r-VR-UbX"/>
+                                                                    <constraint firstItem="4AS-aR-wWS" firstAttribute="centerY" secondItem="jEd-R4-M3K" secondAttribute="centerY" id="HEE-o4-ge9"/>
                                                                     <constraint firstAttribute="trailing" secondItem="845-lm-keK" secondAttribute="trailing" id="HOy-jK-bhi"/>
-                                                                    <constraint firstItem="bFV-cj-F1r" firstAttribute="leading" secondItem="jEd-R4-M3K" secondAttribute="leading" id="PJc-uu-UKX"/>
                                                                     <constraint firstAttribute="bottom" secondItem="845-lm-keK" secondAttribute="bottom" id="S9z-6i-TH4"/>
-                                                                    <constraint firstItem="bFV-cj-F1r" firstAttribute="top" secondItem="jEd-R4-M3K" secondAttribute="top" id="Sux-c1-a1W"/>
                                                                     <constraint firstItem="845-lm-keK" firstAttribute="top" secondItem="jEd-R4-M3K" secondAttribute="top" id="ZWe-6F-LNK"/>
-                                                                    <constraint firstAttribute="bottom" secondItem="bFV-cj-F1r" secondAttribute="bottom" id="bAH-l7-MmU"/>
-                                                                    <constraint firstAttribute="trailing" secondItem="bFV-cj-F1r" secondAttribute="trailing" id="fri-pg-PKh"/>
-                                                                    <constraint firstItem="rS1-oR-O7N" firstAttribute="centerY" secondItem="jEd-R4-M3K" secondAttribute="centerY" id="hfd-Ry-xlm"/>
+                                                                    <constraint firstItem="4AS-aR-wWS" firstAttribute="centerX" secondItem="jEd-R4-M3K" secondAttribute="centerX" id="eLE-Ug-i76"/>
                                                                     <constraint firstAttribute="trailing" secondItem="845-lm-keK" secondAttribute="trailing" id="lCW-qZ-JKa"/>
                                                                     <constraint firstItem="845-lm-keK" firstAttribute="leading" secondItem="jEd-R4-M3K" secondAttribute="leading" id="naJ-Mv-yvG"/>
-                                                                    <constraint firstItem="rS1-oR-O7N" firstAttribute="centerX" secondItem="jEd-R4-M3K" secondAttribute="centerX" id="zeb-2p-b3m"/>
                                                                 </constraints>
                                                             </view>
                                                             <view clipsSubviews="YES" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="LjF-xV-anA">
@@ -596,12 +586,11 @@
                         </variation>
                     </view>
                     <connections>
-                        <outlet property="buttonImageHighLeft" destination="bFV-cj-F1r" id="lt6-Zy-2no"/>
+                        <outlet property="buttonImageHighLeft" destination="4AS-aR-wWS" id="9cc-ZN-4Ow"/>
                         <outlet property="buttonLowLeft" destination="aM2-GD-fze" id="77f-k3-MNJ"/>
                         <outlet property="checkMarkButtonLeft" destination="Bw7-UZ-IVh" id="2yF-RW-HUf"/>
                         <outlet property="checkMarkButtonMiddle" destination="I2F-uZ-kOW" id="ZxF-FY-8bT"/>
                         <outlet property="checkMarkButtonRight" destination="AIa-j2-xwJ" id="tnt-Vw-eKk"/>
-                        <outlet property="imageViewtag3" destination="Agi-XK-m9N" id="pFN-n6-03Q"/>
                         <outlet property="labelSwipeView" destination="d4g-Ia-oI6" id="Agg-ef-gPS"/>
                         <outlet property="squareHighLeft" destination="jEd-R4-M3K" id="qCM-Iw-LlC"/>
                         <outlet property="squareHighRight" destination="LjF-xV-anA" id="ZKL-0X-oMh"/>
