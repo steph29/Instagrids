@@ -35,7 +35,6 @@ class ViewController: UIViewController {
     @IBAction func checkMarkLeft(_ sender: Any) {
         ItemsShowed(firstButton: checkMarkButtonLeft, firstImage: rectangleHigh, stackView: squareLowStackView)
         ItemsHidden(firstButton: checkMarkButtonMiddle, secondButton: checkMarkButtonRight, firstImage: rectangleLow, stackView: squareHighStackView)
-        
     }
     
     @IBAction func checkMarkMiddle(_ sender: Any) {
@@ -84,24 +83,33 @@ class ViewController: UIViewController {
         checkMarkLeft(self)
         imagePicker.delegate = self
         imagePicker.allowsEditing = false
-        UIView.animate(withDuration: 0.6) {
-       
-            
-            self.viewSwiped.center.x += self.view.bounds.width
-        self.labelSwipeView.center.x -= self.view.bounds.width
-        self.checkMarkButtonRight.center.x += self.view.bounds.width
-            UIView.animate(withDuration: 0.5, delay: 0.3, options: [],
-                           animations: {
-                            self.checkMarkButtonMiddle.center.x += self.view.bounds.width
-                            UIView.animate(withDuration: 0.5, delay: 0.6, options: [], animations: {
-                                self.checkMarkButtonLeft.center.x += self.view.bounds.width
-                            }, completion: nil)
+       /* UIView.animate(withDuration: 0.6) {
+         self.viewSwiped.center.x += self.view.bounds.width
+         self.labelSwipeView.center.x -= self.view.bounds.width
+         self.checkMarkButtonRight.center.x += self.view.bounds.width
+         UIView.animate(withDuration: 0.5, delay: 0.3, options: [], animations: {
+            self.checkMarkButtonMiddle.center.x += self.view.bounds.width
+            UIView.animate(withDuration: 0.5, delay: 0.6, options: [], animations: {self.checkMarkButtonLeft.center.x += self.view.bounds.width}, completion: nil)
                                         },
                            completion: nil
             )
-        }
+        }*/
+        let swipeUp = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
+        swipeUp.minimumNumberOfTouches = 1
+        labelSwipeView.addGestureRecognizer(swipeUp)
+        
     }
-  
+
+    @objc func handlePan(_ sender: UIPanGestureRecognizer) {
+        UIGraphicsBeginImageContext(viewSwiped.frame.size)
+        viewSwiped.layer.render(in: UIGraphicsGetCurrentContext()!)
+        guard let image = UIGraphicsGetImageFromCurrentImageContext() else { return }
+        UIGraphicsEndImageContext()
+        
+        let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+        present(activityViewController, animated: true, completion: nil)
+        
+    }
     // MARK - Connection to the library
     @IBAction func prendrePhoto11(_ sender: Any) {
         imageChoisie = squareHighLeft.viewWithTag(1) as! UIImageView
