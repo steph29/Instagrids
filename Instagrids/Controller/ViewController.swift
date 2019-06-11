@@ -11,10 +11,10 @@ import AVFoundation
 
 class ViewController: UIViewController {
     
+    @IBOutlet weak var buttonImageHighLeft: UIButton!
     @IBOutlet weak var buttonLowLeft: UIButton!
     @IBOutlet weak var labelSwipeView: UIStackView!
     @IBOutlet weak var viewSwiped: UIView!
-    @IBOutlet weak var imageViewtag3: UIImageView!
     @IBOutlet weak var squareHighLeft: UIView!
     @IBOutlet weak var squareHighRight: UIView!
     @IBOutlet weak var squareLowLeft: UIView!
