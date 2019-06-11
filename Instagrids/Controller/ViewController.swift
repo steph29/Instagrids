@@ -124,7 +124,6 @@ class ViewController: UIViewController {
     @IBAction func prendrePhoto11(_ sender: Any) {
         imageChoisie = squareHighLeft.viewWithTag(1) as! UIImageView
         capturePicture()
-        buttonImageHighLeft.is = true
         
     }
     
