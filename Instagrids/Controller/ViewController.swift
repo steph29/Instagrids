@@ -26,7 +26,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var squareHighStackView: UIStackView!
     var imagePicker = UIImagePickerController()
     var imageChoisie = UIImageView()
-    
+    var lastTagButtonSelected = Int()
     // MARK - defined checkMarkButton action
     
     @IBAction func checkMarkLeft(_ sender: Any) {
@@ -122,24 +122,26 @@ class ViewController: UIViewController {
     }
     // MARK - Connection to the library
     @IBAction func prendrePhoto11(_ sender: Any) {
-        imageChoisie = squareHighLeft.viewWithTag(1) as! UIImageView
         capturePicture()
+       // imageChoisie = squareHighLeft.viewWithTag(1) as! UIImageView
+    //buttonImageHighLeft.setImage(imageChoisie.image, for: .normal)
+        lastTagButtonSelected = 1
         
     }
     
     @IBAction func prendrePhoto2(_ sender: Any) {
-        imageChoisie = squareHighRight.viewWithTag(2) as! UIImageView
         capturePicture()
+        lastTagButtonSelected = 2
     }
     
     @IBAction func prendrePhoto1(_ sender: Any) {
-        imageChoisie = squareLowLeft.viewWithTag(3) as! UIImageView
         capturePicture()
+        lastTagButtonSelected = 3
     }
     
     @IBAction func prendrePhoto4(_ sender: Any) {
-        imageChoisie = squareLowRight.viewWithTag(4) as! UIImageView
         capturePicture()
+        lastTagButtonSelected = 4
     }
     
     func presentWithSource(_ source: UIImagePickerController.SourceType)  {
@@ -185,12 +187,17 @@ class ViewController: UIViewController {
 extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let buttonToModify = self.view.viewWithTag(lastTagButtonSelected) as! UIButton
         if let edite = info[.editedImage] as? UIImage {
-            imageChoisie.image = edite
+           // imageChoisie.image = edite
+            buttonToModify.setImage(edite, for: .normal)
         } else if let originale = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            imageChoisie.image = originale
+           // imageChoisie.image = originale
+             buttonToModify.setImage(originale, for: .normal)
         }
         dismiss(animated: true, completion: nil)
+        //imageChoisie = squareHighLeft.viewWithTag(lastTagButtonSelected) as! UIImageView
+        
 
     }
     
