@@ -27,16 +27,19 @@ class ViewController: UIViewController {
     var imagePicker = UIImagePickerController()
     var imageChoisie = UIImageView()
     var lastTagButtonSelected = Int()
+    var numberOfImage = Int()
     // MARK - defined checkMarkButton action
     
     @IBAction func checkMarkLeft(_ sender: Any) {
         ItemsHidden(firstButton: checkMarkButtonMiddle, secondButton: checkMarkButtonRight, firstImage: squareHighRight)
         ItemsShowed(firstButton: checkMarkButtonLeft, firstImage: squareLowLeft, secondImage: squareLowRight)
+        numberOfImage = 3
     }
     
     @IBAction func checkMarkMiddle(_ sender: Any) {
         ItemsHidden(firstButton: checkMarkButtonLeft, secondButton: checkMarkButtonRight, firstImage: squareLowRight)
         ItemsShowed(firstButton: checkMarkButtonMiddle, firstImage: squareHighLeft, secondImage: squareHighRight)
+        numberOfImage = 3
     }
     
     @IBAction func checkMarkRight(_ sender: Any) {
@@ -46,6 +49,7 @@ class ViewController: UIViewController {
         squareLowLeft.isHidden = false
         squareHighRight.isHidden = false
         squareHighLeft.isHidden = false
+        numberOfImage = 4
     }
     
     // Mark - function to change the format of the picture
@@ -57,7 +61,7 @@ class ViewController: UIViewController {
     private func StackViewHidden(firstStackView: UIStackView, secondStackView: UIStackView) {
         firstStackView.isHidden = true
         firstStackView.isHidden = true
-
+        
     }
     private func ItemsShowed(firstButton: UIButton,  firstImage: UIView, secondImage: UIView){
         firstButton.imageView?.isHidden = false
@@ -94,19 +98,16 @@ class ViewController: UIViewController {
     
     // MARK - Animation and Share
     @IBAction func handlePan(recognizer:UIPanGestureRecognizer) {
-        let translation = recognizer.translation(in: self.view)
-        if let view = recognizer.view {
-            view.center = CGPoint(x:view.center.x,
-                                  y:view.center.y + translation.y)
+        let translation = recognizer.translation(in: self.labelSwipeView)
+        if UIApplication.shared.statusBarOrientation.isLandscape {
+            labelSwipeView.transform = CGAffineTransform(translationX: translation.x, y: 0)
+        } else {
+            labelSwipeView.transform = CGAffineTransform(translationX: 0, y: translation.y)
         }
-        recognizer.setTranslation(CGPoint.zero, in: self.view)
-        
         if recognizer.state == .ended {
-            UIView.animate(withDuration: 0.3) {
-                recognizer.view!.center.y =  recognizer.view!.bounds.height + 110
-            }
-            handlePan()
+            labelSwipeView.transform = .identity
             
+            handlePan()
         }
     }
     
@@ -123,8 +124,6 @@ class ViewController: UIViewController {
     // MARK - Connection to the library
     @IBAction func prendrePhoto11(_ sender: Any) {
         capturePicture()
-       // imageChoisie = squareHighLeft.viewWithTag(1) as! UIImageView
-    //buttonImageHighLeft.setImage(imageChoisie.image, for: .normal)
         lastTagButtonSelected = 1
         
     }
@@ -189,16 +188,14 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let buttonToModify = self.view.viewWithTag(lastTagButtonSelected) as! UIButton
         if let edite = info[.editedImage] as? UIImage {
-           // imageChoisie.image = edite
             buttonToModify.setImage(edite, for: .normal)
         } else if let originale = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-           // imageChoisie.image = originale
-             buttonToModify.setImage(originale, for: .normal)
+            buttonToModify.setImage(originale, for: .normal)
         }
         dismiss(animated: true, completion: nil)
-        //imageChoisie = squareHighLeft.viewWithTag(lastTagButtonSelected) as! UIImageView
         
-
+        
+        
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
