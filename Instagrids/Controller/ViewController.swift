@@ -94,19 +94,16 @@ class ViewController: UIViewController {
     
     // MARK - Animation and Share
     @IBAction func handlePan(recognizer:UIPanGestureRecognizer) {
-        let translation = recognizer.translation(in: self.view)
-        if let view = recognizer.view {
-            view.center = CGPoint(x:view.center.x,
-                                  y:view.center.y + translation.y)
+        let translation = recognizer.translation(in: self.labelSwipeView)
+        if UIApplication.shared.statusBarOrientation.isLandscape {
+            labelSwipeView.transform = CGAffineTransform(translationX: translation.x, y: 0)
+        } else {
+            labelSwipeView.transform = CGAffineTransform(translationX: 0, y: translation.y)
         }
-        recognizer.setTranslation(CGPoint.zero, in: self.view)
-        
         if recognizer.state == .ended {
-            UIView.animate(withDuration: 0.3) {
-                recognizer.view!.center.y =  recognizer.view!.bounds.height + 110
-            }
-            handlePan()
+            labelSwipeView.transform = .identity
             
+            handlePan()
         }
     }
     
