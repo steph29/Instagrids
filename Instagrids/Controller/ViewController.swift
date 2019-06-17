@@ -30,29 +30,41 @@
         var imageLoaded2 = false
         var imageLoaded3 = false
         var imageLoaded4 = false
+        var checkMarkIsSelectedLeft = false
+        var checkMarkIsSelectedMiddle = false
+        var checkMarkIsSelectedRight = false
         var imageCount = ImageCount()
         
         // MARK - defined checkMarkButton action
         @IBAction func checkMarkLeft(_ sender: Any) {
+            checkMarkIsSelectedMiddle = false
+            checkMarkIsSelectedRight = false
+            checkMarkIsSelectedLeft = true
             ItemsHidden(firstButton: checkMarkButtonMiddle, secondButton: checkMarkButtonRight, firstImage: squareHighRight)
             ItemsShowed(firstButton: checkMarkButtonLeft, firstImage: squareLowLeft, secondImage: squareLowRight)
-            checkMarkButtonLeft.isSelected = true
+            
         }
         
         @IBAction func checkMarkMiddle(_ sender: Any) {
+            checkMarkIsSelectedMiddle = true
+            checkMarkIsSelectedRight = false
+            checkMarkIsSelectedLeft = false
             ItemsHidden(firstButton: checkMarkButtonLeft, secondButton: checkMarkButtonRight, firstImage: squareLowRight)
             ItemsShowed(firstButton: checkMarkButtonMiddle, firstImage: squareHighLeft, secondImage: squareHighRight)
-            checkMarkButtonMiddle.isSelected = true
+            
         }
         
         @IBAction func checkMarkRight(_ sender: Any) {
+            checkMarkIsSelectedMiddle = false
+            checkMarkIsSelectedRight = true
+            checkMarkIsSelectedLeft = false
             checkMarkButtonLeft.imageView?.isHidden = true
             checkMarkButtonMiddle.imageView?.isHidden = true
             squareLowRight.isHidden = false
             squareLowLeft.isHidden = false
             squareHighRight.isHidden = false
             squareHighLeft.isHidden = false
-            checkMarkButtonRight.isSelected = true
+            
         }
         
         // Mark - function to change the format of the picture
@@ -100,6 +112,13 @@
         }
         
         // MARK - Animation and Share
+        func alertIsNotLoaded() {
+            let alert = UIAlertController(title: "Pas si vite!", message: "Toutes les photos ne sont pas chargées", preferredStyle: .alert)
+            let annuler = UIAlertAction(title: "Je comprends", style: .destructive, handler: nil)
+            alert.addAction(annuler)
+            self.present(alert, animated: true, completion: nil)
+        }
+        
         @IBAction func handlePan(recognizer:UIPanGestureRecognizer) {
             let translation = recognizer.translation(in: self.labelSwipeView)
             if UIApplication.shared.statusBarOrientation.isLandscape {
@@ -107,16 +126,12 @@
             } else {
                 labelSwipeView.transform = CGAffineTransform(translationX: 0, y: translation.y)
             }
-            
             if recognizer.state == .ended {
                 labelSwipeView.transform = .identity
                 if (!IsLoaded()){
-                    let alert = UIAlertController(title: "Pas si vite!", message: "Toutes les photos ne sont pas chargées", preferredStyle: .alert)
-                    let annuler = UIAlertAction(title: "Je comprends", style: .destructive, handler: nil)
-                    alert.addAction(annuler)
-                    self.present(alert, animated: true, completion: nil)
+                    alertIsNotLoaded()
                 }else {
-                handlePan()
+                    handlePan()
                 }
             }
         }
@@ -124,7 +139,7 @@
         
         // function to share the content
         func handlePan() {
-           UIGraphicsBeginImageContext(viewSwiped.bounds.size)
+            UIGraphicsBeginImageContext(viewSwiped.bounds.size)
             viewSwiped.layer.render(in: UIGraphicsGetCurrentContext()!)
             guard let image = UIGraphicsGetImageFromCurrentImageContext() else { return }
             UIGraphicsEndImageContext()
@@ -132,19 +147,20 @@
             let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
             present(activityViewController, animated: true, completion: nil)
         }
-    
+        
         // MARK - Connection to the library
         func IsLoaded() -> Bool {
             var isLoaded = false
-            if (checkMarkButtonLeft.isSelected) {
+            if (checkMarkIsSelectedLeft) {
                 if (imageLoaded1 && imageLoaded3 && imageLoaded4) {
-                isLoaded = true
-                }
-            } else if (checkMarkButtonMiddle.isSelected){
-                if (imageLoaded1 && imageLoaded2 && imageLoaded4){
                     isLoaded = true
                 }
-            } else if (checkMarkButtonRight.isSelected) {
+            }
+            else if (checkMarkIsSelectedMiddle){
+                if (imageLoaded1 && imageLoaded2 && imageLoaded3){
+                    isLoaded = true
+                }
+            } else if (checkMarkIsSelectedRight) {
                 if (imageLoaded1 && imageLoaded2 && imageLoaded3 && imageLoaded4) {
                     isLoaded = true
                 }
