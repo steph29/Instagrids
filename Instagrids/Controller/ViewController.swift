@@ -67,7 +67,7 @@
             
         }
         
-        // Mark - function to change the format of the picture
+        // Mark - function to change the position of the images
         private func StackViewShowed(firstStackView: UIStackView, secondStackView: UIStackView){
             firstStackView.isHidden = false
             firstStackView.isHidden = false
@@ -148,7 +148,7 @@
             present(activityViewController, animated: true, completion: nil)
         }
         
-        // MARK - Connection to the library
+        // MARK - Verify if all images are uploaded
         func IsLoaded() -> Bool {
             var isLoaded = false
             if (checkMarkIsSelectedLeft) {
@@ -168,6 +168,7 @@
             return isLoaded
         }
         
+        // MARK - button action to upload image
         @IBAction func prendrePhoto11(_ sender: Any) {
             capturePicture()
             lastTagButtonSelected = 1
@@ -192,6 +193,7 @@
             imageLoaded4 = true
         }
         
+        // MARK - Connection to the camera or library
         func presentWithSource(_ source: UIImagePickerController.SourceType)  {
             imagePicker.sourceType = source
             present(imagePicker, animated: true, completion: nil)
