@@ -25,21 +25,24 @@
         @IBOutlet weak var squareLowStackView: UIStackView!
         @IBOutlet weak var squareHighStackView: UIStackView!
         var imagePicker = UIImagePickerController()
-        var imageChoisie = UIImageView()
         var lastTagButtonSelected = Int()
-        var numberOfImage = Int()
-        // MARK - defined checkMarkButton action
+        var imageLoaded1 = false
+        var imageLoaded2 = false
+        var imageLoaded3 = false
+        var imageLoaded4 = false
+        var imageCount = ImageCount()
         
+        // MARK - defined checkMarkButton action
         @IBAction func checkMarkLeft(_ sender: Any) {
             ItemsHidden(firstButton: checkMarkButtonMiddle, secondButton: checkMarkButtonRight, firstImage: squareHighRight)
             ItemsShowed(firstButton: checkMarkButtonLeft, firstImage: squareLowLeft, secondImage: squareLowRight)
-            numberOfImage = 3
+            checkMarkButtonLeft.isSelected = true
         }
         
         @IBAction func checkMarkMiddle(_ sender: Any) {
             ItemsHidden(firstButton: checkMarkButtonLeft, secondButton: checkMarkButtonRight, firstImage: squareLowRight)
             ItemsShowed(firstButton: checkMarkButtonMiddle, firstImage: squareHighLeft, secondImage: squareHighRight)
-            numberOfImage = 3
+            checkMarkButtonMiddle.isSelected = true
         }
         
         @IBAction func checkMarkRight(_ sender: Any) {
@@ -49,7 +52,7 @@
             squareLowLeft.isHidden = false
             squareHighRight.isHidden = false
             squareHighLeft.isHidden = false
-            numberOfImage = 4
+            checkMarkButtonRight.isSelected = true
         }
         
         // Mark - function to change the format of the picture
@@ -104,15 +107,24 @@
             } else {
                 labelSwipeView.transform = CGAffineTransform(translationX: 0, y: translation.y)
             }
+            
             if recognizer.state == .ended {
                 labelSwipeView.transform = .identity
+                if (!IsLoaded()){
+                    let alert = UIAlertController(title: "Pas si vite!", message: "Toutes les photos ne sont pas chargées", preferredStyle: .alert)
+                    let annuler = UIAlertAction(title: "Je comprends", style: .destructive, handler: nil)
+                    alert.addAction(annuler)
+                    self.present(alert, animated: true, completion: nil)
+                }else {
                 handlePan()
+                }
             }
         }
         
+        
         // function to share the content
         func handlePan() {
-            UIGraphicsBeginImageContext(viewSwiped.bounds.size)
+           UIGraphicsBeginImageContext(viewSwiped.bounds.size)
             viewSwiped.layer.render(in: UIGraphicsGetCurrentContext()!)
             guard let image = UIGraphicsGetImageFromCurrentImageContext() else { return }
             UIGraphicsEndImageContext()
@@ -120,26 +132,48 @@
             let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
             present(activityViewController, animated: true, completion: nil)
         }
+    
         // MARK - Connection to the library
+        func IsLoaded() -> Bool {
+            var isLoaded = false
+            if (checkMarkButtonLeft.isSelected) {
+                if (imageLoaded1 && imageLoaded3 && imageLoaded4) {
+                isLoaded = true
+                }
+            } else if (checkMarkButtonMiddle.isSelected){
+                if (imageLoaded1 && imageLoaded2 && imageLoaded4){
+                    isLoaded = true
+                }
+            } else if (checkMarkButtonRight.isSelected) {
+                if (imageLoaded1 && imageLoaded2 && imageLoaded3 && imageLoaded4) {
+                    isLoaded = true
+                }
+            }
+            return isLoaded
+        }
+        
         @IBAction func prendrePhoto11(_ sender: Any) {
             capturePicture()
             lastTagButtonSelected = 1
-            
+            imageLoaded1 = true
         }
         
         @IBAction func prendrePhoto2(_ sender: Any) {
             capturePicture()
             lastTagButtonSelected = 2
+            imageLoaded2 = true
         }
         
         @IBAction func prendrePhoto1(_ sender: Any) {
             capturePicture()
             lastTagButtonSelected = 3
+            imageLoaded3 = true
         }
         
         @IBAction func prendrePhoto4(_ sender: Any) {
             capturePicture()
             lastTagButtonSelected = 4
+            imageLoaded4 = true
         }
         
         func presentWithSource(_ source: UIImagePickerController.SourceType)  {
@@ -154,7 +188,7 @@
                     self.presentWithSource(.camera)
                 } else {
                     let alerte = UIAlertController(title: "Erreur", message: "Aucun appareil photo n'est disponible", preferredStyle: .alert)
-                    let annuler = UIAlertAction(title: "Je comprends", style: .destructive, handler: nil)
+                    let annuler = UIAlertAction(title: "Annuler", style: .destructive, handler: nil)
                     alerte.addAction(annuler)
                     self.present(alerte, animated: true, completion: nil)
                 }
