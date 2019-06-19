@@ -33,7 +33,6 @@
         var checkMarkIsSelectedLeft = false
         var checkMarkIsSelectedMiddle = false
         var checkMarkIsSelectedRight = false
-        var imageCount = ImageCount()
         
         // MARK - defined checkMarkButton action
         @IBAction func checkMarkLeft(_ sender: Any) {
@@ -120,14 +119,14 @@
         }
         
         @IBAction func handlePan(recognizer:UIPanGestureRecognizer) {
-            let translation = recognizer.translation(in: self.labelSwipeView)
+            let translation = recognizer.translation(in: self.viewSwiped)
             if UIApplication.shared.statusBarOrientation.isLandscape {
-                labelSwipeView.transform = CGAffineTransform(translationX: translation.x, y: 0)
+                viewSwiped.transform = CGAffineTransform(translationX: translation.x, y: 0)
             } else {
-                labelSwipeView.transform = CGAffineTransform(translationX: 0, y: translation.y)
+                viewSwiped.transform = CGAffineTransform(translationX: 0, y: translation.y)
             }
             if recognizer.state == .ended {
-                labelSwipeView.transform = .identity
+                viewSwiped.transform = .identity
                 if (!IsLoaded()){
                     alertIsNotLoaded()
                 }else {

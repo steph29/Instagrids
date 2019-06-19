@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B135AE0222B6D0C000F2004D /* ImageCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = B135AE0122B6D0C000F2004D /* ImageCount.swift */; };
 		B1C8806821DE7FF600F8FF21 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C8806721DE7FF600F8FF21 /* AppDelegate.swift */; };
 		B1C8806A21DE7FF600F8FF21 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C8806921DE7FF600F8FF21 /* ViewController.swift */; };
 		B1C8806D21DE7FF600F8FF21 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1C8806B21DE7FF600F8FF21 /* Main.storyboard */; };
@@ -18,7 +17,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		B135AE0122B6D0C000F2004D /* ImageCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCount.swift; sourceTree = "<group>"; };
 		B1C8806421DE7FF600F8FF21 /* Instagrids.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Instagrids.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1C8806721DE7FF600F8FF21 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B1C8806921DE7FF600F8FF21 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -53,7 +51,6 @@
 		B103D67721E6A2CD00F79780 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				B135AE0122B6D0C000F2004D /* ImageCount.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -178,7 +175,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B135AE0222B6D0C000F2004D /* ImageCount.swift in Sources */,
 				B1C8806A21DE7FF600F8FF21 /* ViewController.swift in Sources */,
 				B1C8806821DE7FF600F8FF21 /* AppDelegate.swift in Sources */,
 			);
