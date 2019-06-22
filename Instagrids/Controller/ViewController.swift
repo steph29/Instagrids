@@ -124,15 +124,14 @@ class ViewController: UIViewController {
     @IBAction func handlePan(recognizer:UIPanGestureRecognizer) {
         let translation = recognizer.translation(in: self.viewSwiped)
         if UIApplication.shared.statusBarOrientation.isLandscape {
-            viewSwiped.transform = CGAffineTransform(translationX: translation.x, y: 0)
+            viewSwiped.transform = CGAffineTransform(translationX: translation.x - 500 , y: 0)
         } else {
-            viewSwiped.transform = CGAffineTransform(translationX: 0, y: translation.y - 400)
+            viewSwiped.transform = CGAffineTransform(translationX: 0, y: translation.y - 350)
         }
         if recognizer.state == .ended {
             if (!IsLoaded()){
-                viewSwiped.transform = .identity
                 alertIsNotLoaded()
-                
+                viewSwiped.transform = .identity
             }else {
                 handleShare()
             }
