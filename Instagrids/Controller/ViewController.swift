@@ -9,19 +9,21 @@
 import UIKit
 import AVFoundation
 
+// Controller
 class ViewController: UIViewController {
     
-    @IBOutlet weak var buttonImageHighLeft: UIButton!
-    @IBOutlet weak var buttonLowLeft: UIButton!
-    @IBOutlet weak var labelSwipeView: UIStackView!
-    @IBOutlet weak var viewSwiped: UIView!
+    @IBOutlet weak var labelSwipeView: UIStackView! // Outlet of The Label "Swpie up to share"
+    @IBOutlet weak var viewSwiped: UIView! // Outlet of the deep blue view with imageView
+    // Outlet of each square button
     @IBOutlet weak var squareHighLeft: UIView!
     @IBOutlet weak var squareHighRight: UIView!
     @IBOutlet weak var squareLowLeft: UIView!
     @IBOutlet weak var squareLowRight: UIView!
+    // outlet of button of selection
     @IBOutlet weak var checkMarkButtonLeft: UIButton!
     @IBOutlet weak var checkMarkButtonMiddle: UIButton!
     @IBOutlet weak var checkMarkButtonRight: UIButton!
+    // outlet of stackView
     @IBOutlet weak var squareLowStackView: UIStackView!
     @IBOutlet weak var squareHighStackView: UIStackView!
     var imagePicker = UIImagePickerController() // image picking on librairie or on camera
@@ -35,6 +37,7 @@ class ViewController: UIViewController {
     var checkMarkIsSelectedRight = false // Boolean concerning the state of the selection of the button
     
     // MARK - defined checkMarkButton action
+    // function for the left checkMark Button
     @IBAction func checkMarkLeft(_ sender: Any) {
         checkMarkIsSelectedMiddle = false
         checkMarkIsSelectedRight = false
@@ -45,6 +48,7 @@ class ViewController: UIViewController {
         
     }
     
+    // function for the middle checkMark Button
     @IBAction func checkMarkMiddle(_ sender: Any) {
         checkMarkIsSelectedMiddle = true
         checkMarkIsSelectedRight = false
@@ -55,6 +59,7 @@ class ViewController: UIViewController {
         
     }
     
+    // function for the right checkMark Button
     @IBAction func checkMarkRight(_ sender: Any) {
         checkMarkIsSelectedMiddle = false
         checkMarkIsSelectedRight = true
@@ -69,7 +74,7 @@ class ViewController: UIViewController {
         
     }
     
-    // Mark - function to change the position of the images
+    // Mark - function to change the layout of the images
     private func StackViewShowed(firstStackView: UIStackView, secondStackView: UIStackView){
         firstStackView.isHidden = false
         firstStackView.isHidden = false
@@ -121,6 +126,7 @@ class ViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
+    // function of pan gesture with share
     @IBAction func handlePan(recognizer:UIPanGestureRecognizer) {
         let translation = recognizer.translation(in: self.viewSwiped)
         if UIApplication.shared.statusBarOrientation.isLandscape {
@@ -238,7 +244,7 @@ class ViewController: UIViewController {
     
 }
 
-
+// Extension to upload image from library or from camera and adjust the size
 extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
