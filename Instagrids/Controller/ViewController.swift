@@ -24,35 +24,52 @@ class ViewController: UIViewController {
     @IBOutlet weak var checkMarkButtonRight: UIButton!
     @IBOutlet weak var squareLowStackView: UIStackView!
     @IBOutlet weak var squareHighStackView: UIStackView!
-    var imagePicker = UIImagePickerController()
-    var imageChoisie = UIImageView()
-    var lastTagButtonSelected = Int()
-    var numberOfImage = Int()
-    // MARK - defined checkMarkButton action
+    var imagePicker = UIImagePickerController() // image picking on librairie or on camera
+    var lastTagButtonSelected = Int() // Tag of the button selected
+    var imageLoaded1 = false // image from square High Left
+    var imageLoaded2 = false // image from square High Right
+    var imageLoaded3 = false // image from square low Left
+    var imageLoaded4 = false // image from square low Right
+    var checkMarkIsSelectedLeft = false // Boolean concerning the state of the selection of the button
+    var checkMarkIsSelectedMiddle = false // Boolean concerning the state of the selection of the button
+    var checkMarkIsSelectedRight = false // Boolean concerning the state of the selection of the button
     
+    // MARK - defined checkMarkButton action
     @IBAction func checkMarkLeft(_ sender: Any) {
+        checkMarkIsSelectedMiddle = false
+        checkMarkIsSelectedRight = false
+        checkMarkIsSelectedLeft = true
+        viewSwiped.transform = .identity
         ItemsHidden(firstButton: checkMarkButtonMiddle, secondButton: checkMarkButtonRight, firstImage: squareHighRight)
         ItemsShowed(firstButton: checkMarkButtonLeft, firstImage: squareLowLeft, secondImage: squareLowRight)
-        numberOfImage = 3
+        
     }
     
     @IBAction func checkMarkMiddle(_ sender: Any) {
+        checkMarkIsSelectedMiddle = true
+        checkMarkIsSelectedRight = false
+        checkMarkIsSelectedLeft = false
+        viewSwiped.transform = .identity
         ItemsHidden(firstButton: checkMarkButtonLeft, secondButton: checkMarkButtonRight, firstImage: squareLowRight)
         ItemsShowed(firstButton: checkMarkButtonMiddle, firstImage: squareHighLeft, secondImage: squareHighRight)
-        numberOfImage = 3
+        
     }
     
     @IBAction func checkMarkRight(_ sender: Any) {
+        checkMarkIsSelectedMiddle = false
+        checkMarkIsSelectedRight = true
+        checkMarkIsSelectedLeft = false
+        viewSwiped.transform = .identity
         checkMarkButtonLeft.imageView?.isHidden = true
         checkMarkButtonMiddle.imageView?.isHidden = true
         squareLowRight.isHidden = false
         squareLowLeft.isHidden = false
         squareHighRight.isHidden = false
         squareHighLeft.isHidden = false
-        numberOfImage = 4
+        
     }
     
-    // Mark - function to change the format of the picture
+    // Mark - function to change the position of the images
     private func StackViewShowed(firstStackView: UIStackView, secondStackView: UIStackView){
         firstStackView.isHidden = false
         firstStackView.isHidden = false
@@ -97,22 +114,36 @@ class ViewController: UIViewController {
     }
     
     // MARK - Animation and Share
-    @IBAction func handlePan(recognizer:UIPanGestureRecognizer) {
-        let translation = recognizer.translation(in: self.labelSwipeView)
-        if UIApplication.shared.statusBarOrientation.isLandscape {
-            labelSwipeView.transform = CGAffineTransform(translationX: translation.x, y: 0)
-        } else {
-            labelSwipeView.transform = CGAffineTransform(translationX: 0, y: translation.y)
-        }
-        if recognizer.state == .ended {
-            labelSwipeView.transform = .identity
-            
-            handlePan()
-        }
+    func alertIsNotLoaded() {
+        let alert = UIAlertController(title: "Pas si vite!", message: "Toutes les photos ne sont pas chargées", preferredStyle: .alert)
+        let annuler = UIAlertAction(title: "Je comprends", style: .destructive, handler: nil)
+        alert.addAction(annuler)
+        self.present(alert, animated: true, completion: nil)
     }
     
+    @IBAction func handlePan(recognizer:UIPanGestureRecognizer) {
+        let translation = recognizer.translation(in: self.viewSwiped)
+        if UIApplication.shared.statusBarOrientation.isLandscape {
+            viewSwiped.transform = CGAffineTransform(translationX: translation.x, y: 0)
+        } else {
+            viewSwiped.transform = CGAffineTransform(translationX: 0, y: translation.y - 400)
+        }
+        if recognizer.state == .ended {
+            if (!IsLoaded()){
+                viewSwiped.transform = .identity
+                alertIsNotLoaded()
+                
+            }else {
+                handleShare()
+            }
+            
+        }
+        
+    }
+    
+    
     // function to share the content
-    func handlePan() {
+    func handleShare() {
         UIGraphicsBeginImageContext(viewSwiped.bounds.size)
         viewSwiped.layer.render(in: UIGraphicsGetCurrentContext()!)
         guard let image = UIGraphicsGetImageFromCurrentImageContext() else { return }
@@ -120,29 +151,55 @@ class ViewController: UIViewController {
         
         let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
         present(activityViewController, animated: true, completion: nil)
+        
     }
-    // MARK - Connection to the library
+    
+    // MARK - Verify if all images are uploaded
+    func IsLoaded() -> Bool {
+        var isLoaded = false
+        if (checkMarkIsSelectedLeft) {
+            if (imageLoaded1 && imageLoaded3 && imageLoaded4) {
+                isLoaded = true
+            }
+        }
+        else if (checkMarkIsSelectedMiddle){
+            if (imageLoaded1 && imageLoaded2 && imageLoaded3){
+                isLoaded = true
+            }
+        } else if (checkMarkIsSelectedRight) {
+            if (imageLoaded1 && imageLoaded2 && imageLoaded3 && imageLoaded4) {
+                isLoaded = true
+            }
+        }
+        return isLoaded
+    }
+    
+    // MARK - button action to upload image
     @IBAction func prendrePhoto11(_ sender: Any) {
         capturePicture()
         lastTagButtonSelected = 1
-        
+        imageLoaded1 = true
     }
     
     @IBAction func prendrePhoto2(_ sender: Any) {
         capturePicture()
         lastTagButtonSelected = 2
+        imageLoaded2 = true
     }
     
     @IBAction func prendrePhoto1(_ sender: Any) {
         capturePicture()
         lastTagButtonSelected = 3
+        imageLoaded3 = true
     }
     
     @IBAction func prendrePhoto4(_ sender: Any) {
         capturePicture()
         lastTagButtonSelected = 4
+        imageLoaded4 = true
     }
     
+    // MARK - Connection to the camera or library
     func presentWithSource(_ source: UIImagePickerController.SourceType)  {
         imagePicker.sourceType = source
         present(imagePicker, animated: true, completion: nil)
@@ -155,7 +212,7 @@ class ViewController: UIViewController {
                 self.presentWithSource(.camera)
             } else {
                 let alerte = UIAlertController(title: "Erreur", message: "Aucun appareil photo n'est disponible", preferredStyle: .alert)
-                let annuler = UIAlertAction(title: "Je comprends", style: .destructive, handler: nil)
+                let annuler = UIAlertAction(title: "Annuler", style: .destructive, handler: nil)
                 alerte.addAction(annuler)
                 self.present(alerte, animated: true, completion: nil)
             }
@@ -189,20 +246,18 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
         let buttonToModify = self.view.viewWithTag(lastTagButtonSelected) as! UIButton
         if let edite = info[.editedImage] as? UIImage {
             buttonToModify.setImage(edite, for: .normal)
-        } else if let originale = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            buttonToModify.imageView!.contentMode = .scaleAspectFill
+            buttonToModify.imageView!.layer.masksToBounds = true
+        } else if let originale = info[.originalImage] as? UIImage {
             buttonToModify.setImage(originale, for: .normal)
+            buttonToModify.imageView!.contentMode = .scaleAspectFill
+            buttonToModify.imageView!.layer.masksToBounds = true
         }
         dismiss(animated: true, completion: nil)
-        
-        
-        
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
 }
-
-
-
 
