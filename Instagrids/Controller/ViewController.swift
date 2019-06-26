@@ -14,11 +14,12 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var labelSwipeView: UIStackView! // Outlet of The Label "Swpie up to share"
     @IBOutlet weak var viewSwiped: UIView! // Outlet of the deep blue view with imageView
-    // Outlet of each square button
-    @IBOutlet weak var squareHighLeft: UIView!
-    @IBOutlet weak var squareHighRight: UIView!
-    @IBOutlet weak var squareLowLeft: UIView!
-    @IBOutlet weak var squareLowRight: UIView!
+    // Outlet concerning Button
+    @IBOutlet weak var button1: UIButton!
+    @IBOutlet weak var button2: UIButton!
+    @IBOutlet weak var button3: UIButton!
+    @IBOutlet weak var button4: UIButton!
+    
     // outlet of button of selection
     @IBOutlet weak var checkMarkButtonLeft: UIButton!
     @IBOutlet weak var checkMarkButtonMiddle: UIButton!
@@ -43,9 +44,8 @@ class ViewController: UIViewController {
         checkMarkIsSelectedRight = false
         checkMarkIsSelectedLeft = true
         viewSwiped.transform = .identity
-        ItemsHidden(firstButton: checkMarkButtonMiddle, secondButton: checkMarkButtonRight, firstImage: squareHighRight)
-        ItemsShowed(firstButton: checkMarkButtonLeft, firstImage: squareLowLeft, secondImage: squareLowRight)
-        
+        ItemsShowed(firstButton: checkMarkButtonLeft, firstImage: button3, thirdButton: button4)
+        ItemsHidden(firstButton: checkMarkButtonMiddle, secondButton: checkMarkButtonRight, thirdButton: button2)
     }
     
     // function for the middle checkMark Button
@@ -54,8 +54,8 @@ class ViewController: UIViewController {
         checkMarkIsSelectedRight = false
         checkMarkIsSelectedLeft = false
         viewSwiped.transform = .identity
-        ItemsHidden(firstButton: checkMarkButtonLeft, secondButton: checkMarkButtonRight, firstImage: squareLowRight)
-        ItemsShowed(firstButton: checkMarkButtonMiddle, firstImage: squareHighLeft, secondImage: squareHighRight)
+        ItemsShowed(firstButton: checkMarkButtonMiddle, firstImage: button1, thirdButton: button2)
+        ItemsHidden(firstButton: checkMarkButtonLeft, secondButton: checkMarkButtonRight, thirdButton: button4)
         
     }
     
@@ -67,10 +67,10 @@ class ViewController: UIViewController {
         viewSwiped.transform = .identity
         checkMarkButtonLeft.imageView?.isHidden = true
         checkMarkButtonMiddle.imageView?.isHidden = true
-        squareLowRight.isHidden = false
-        squareLowLeft.isHidden = false
-        squareHighRight.isHidden = false
-        squareHighLeft.isHidden = false
+        button4.isHidden = false
+        button3.isHidden = false
+        button1.isHidden = false
+        button2.isHidden = false
         
     }
     
@@ -85,16 +85,16 @@ class ViewController: UIViewController {
         firstStackView.isHidden = true
         
     }
-    private func ItemsShowed(firstButton: UIButton,  firstImage: UIView, secondImage: UIView){
+    private func ItemsShowed(firstButton: UIButton,  firstImage: UIView, thirdButton: UIButton){
         firstButton.imageView?.isHidden = false
         firstImage.isHidden = false
-        secondImage.isHidden = false
+        thirdButton.isHidden = false
     }
     
-    private func ItemsHidden(firstButton: UIButton, secondButton: UIButton,  firstImage: UIView){
+    private func ItemsHidden(firstButton: UIButton, secondButton: UIButton,  thirdButton: UIButton){
         firstButton.imageView?.isHidden = true
         secondButton.imageView?.isHidden = true
-        firstImage.isHidden = true
+        thirdButton.isHidden = true
         
     }
     
@@ -116,6 +116,9 @@ class ViewController: UIViewController {
                            completion: nil
             )
         }
+        let upSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
+        upSwipe.direction = .up
+        labelSwipeView.addGestureRecognizer(upSwipe)
     }
     
     // MARK - Animation and Share
@@ -126,36 +129,51 @@ class ViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
-    // function of pan gesture with share
-    @IBAction func handlePan(recognizer:UIPanGestureRecognizer) {
-        let translation = recognizer.translation(in: self.viewSwiped)
+    // MARK - Swipe function and Share
+    //fucntion About animatin depending the orientation
+   func animationMode() {
         if UIApplication.shared.statusBarOrientation.isLandscape {
-            viewSwiped.transform = CGAffineTransform(translationX: translation.x - 500 , y: 0)
-        } else {
-            viewSwiped.transform = CGAffineTransform(translationX: 0, y: translation.y - 350)
+            UIView.animate(withDuration: 0.5, delay: 0.4,
+                           options: [],
+                           animations: {
+                            self.viewSwiped.center.x -= self.view.bounds.width
+            },
+                           completion: nil
+            )
+        }else{
+            UIView.animate(withDuration: 0.5, delay: 0.4,
+                           options: [],
+                           animations: {
+                            self.viewSwiped.center.y -= self.view.bounds.height
+            },
+                           completion: nil
+            )
         }
-        if recognizer.state == .ended {
-            if (!IsLoaded()){
-                alertIsNotLoaded()
-                viewSwiped.transform = .identity
-            }else {
-                handleShare()
-            }
-            
-        }
-        
     }
     
+    @objc func handleSwipe(_ sender: UISwipeGestureRecognizer){
+        if sender.state == .ended{
+            if (!IsLoaded()){
+              alertIsNotLoaded()
+            }else {
+                 animationMode()
+                  handleShare()
+            }
+            }
+        }
     
+  
     // function to share the content
     func handleShare() {
         UIGraphicsBeginImageContext(viewSwiped.bounds.size)
-        viewSwiped.layer.render(in: UIGraphicsGetCurrentContext()!)
+        viewSwiped.layer.render(in: UIGraphicsGetCurrentContext()!) // Return the current graphics context
         guard let image = UIGraphicsGetImageFromCurrentImageContext() else { return }
         UIGraphicsEndImageContext()
         
         let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
         present(activityViewController, animated: true, completion: nil)
+        
+        
         
     }
     
@@ -180,28 +198,16 @@ class ViewController: UIViewController {
     }
     
     // MARK - button action to upload image
-    @IBAction func prendrePhoto11(_ sender: Any) {
+    @IBAction func prendrePhoto(_ sender: Any) {
         capturePicture()
-        lastTagButtonSelected = 1
-        imageLoaded1 = true
+        lastTagButtonSelected = (sender as AnyObject).tag
+       // creer une fonction pour cela imageLoaded1 = true
     }
     
-    @IBAction func prendrePhoto2(_ sender: Any) {
-        capturePicture()
-        lastTagButtonSelected = 2
-        imageLoaded2 = true
-    }
+    func IsImageLoaded() -> Bool {
+        let isImageLoaded = false
     
-    @IBAction func prendrePhoto1(_ sender: Any) {
-        capturePicture()
-        lastTagButtonSelected = 3
-        imageLoaded3 = true
-    }
-    
-    @IBAction func prendrePhoto4(_ sender: Any) {
-        capturePicture()
-        lastTagButtonSelected = 4
-        imageLoaded4 = true
+        return isImageLoaded
     }
     
     // MARK - Connection to the camera or library

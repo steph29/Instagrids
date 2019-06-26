@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B1A5D0752286BBB60060CD76 /* CaptureButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A5D0742286BBB60060CD76 /* CaptureButton.swift */; };
 		B1C8806821DE7FF600F8FF21 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C8806721DE7FF600F8FF21 /* AppDelegate.swift */; };
 		B1C8806A21DE7FF600F8FF21 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C8806921DE7FF600F8FF21 /* ViewController.swift */; };
 		B1C8806D21DE7FF600F8FF21 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1C8806B21DE7FF600F8FF21 /* Main.storyboard */; };
@@ -18,7 +17,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		B1A5D0742286BBB60060CD76 /* CaptureButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureButton.swift; sourceTree = "<group>"; };
 		B1C8806421DE7FF600F8FF21 /* Instagrids.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Instagrids.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1C8806721DE7FF600F8FF21 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B1C8806921DE7FF600F8FF21 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -53,7 +51,6 @@
 		B103D67721E6A2CD00F79780 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				B1A5D0742286BBB60060CD76 /* CaptureButton.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -179,7 +176,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B1C8806A21DE7FF600F8FF21 /* ViewController.swift in Sources */,
-				B1A5D0752286BBB60060CD76 /* CaptureButton.swift in Sources */,
 				B1C8806821DE7FF600F8FF21 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -329,6 +325,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = L325WJD5P6;
 				INFOPLIST_FILE = Instagrids/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -347,6 +344,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = L325WJD5P6;
 				INFOPLIST_FILE = Instagrids/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
