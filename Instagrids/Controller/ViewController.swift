@@ -116,12 +116,35 @@ class ViewController: UIViewController {
                            completion: nil
             )
         }
-        let upSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
-        upSwipe.direction = .up
-        labelSwipeView.addGestureRecognizer(upSwipe)
+       // animationSwipe()
+    }
+   
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        animationSwipe()
     }
     
+    
     // MARK - Animation and Share
+    func animationSwipe() {
+        if UIDevice.current.orientation.isLandscape {
+            let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
+            leftSwipe.direction = .left
+            labelSwipeView.addGestureRecognizer(leftSwipe)
+        }else if UIDevice.current.orientation.isPortrait {
+            let upSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
+            upSwipe.direction = .up
+            labelSwipeView.addGestureRecognizer(upSwipe)
+        }
+    }
+    
+    // function to return viewSwipe at the original position
+    func AnimationReturnToIdentiy(){
+        UIView.animate(withDuration: 0.5, delay: 0.3, options: [], animations: {
+            self.viewSwiped.center.x += self.view.bounds.width
+        }, completion: nil)
+    }
+    
     func alertIsNotLoaded() {
         let alert = UIAlertController(title: "Pas si vite!", message: "Toutes les photos ne sont pas chargées", preferredStyle: .alert)
         let annuler = UIAlertAction(title: "Je comprends", style: .destructive, handler: nil)
@@ -172,14 +195,14 @@ class ViewController: UIViewController {
         
         let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
         present(activityViewController, animated: true, completion: nil)
-        
-        
+        // permet de revenir a l'etat initial si cancel selectionné. Voir chapitre des closure use completed
+   // activityViewController.completionWithItemsHandler
         
     }
     
     // MARK - Verify if all images are uploaded
     func IsLoaded() -> Bool {
-        var isLoaded = false
+        var isLoaded = true
         if (checkMarkIsSelectedLeft) {
             if (imageLoaded1 && imageLoaded3 && imageLoaded4) {
                 isLoaded = true
@@ -201,12 +224,20 @@ class ViewController: UIViewController {
     @IBAction func prendrePhoto(_ sender: Any) {
         capturePicture()
         lastTagButtonSelected = (sender as AnyObject).tag
-       // creer une fonction pour cela imageLoaded1 = true
+        IsImageLoaded(tag: lastTagButtonSelected)
     }
     
-    func IsImageLoaded() -> Bool {
+    func IsImageLoaded(tag: Int) -> Bool {
         let isImageLoaded = false
-    
+        if tag == 1{
+            imageLoaded1 = true
+        }else if tag == 2{
+            imageLoaded2 = true
+        }else if tag == 3{
+            imageLoaded3 = true
+        }else if tag == 4{
+            imageLoaded4 = true
+        }
         return isImageLoaded
     }
     
