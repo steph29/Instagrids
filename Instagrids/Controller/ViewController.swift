@@ -104,7 +104,6 @@ class ViewController: UIViewController {
         imagePicker.delegate = self
         imagePicker.allowsEditing = false
         UIView.animate(withDuration: 0.5) {
-            self.viewSwiped.center.x += self.view.bounds.width
             self.checkMarkButtonRight.center.x += self.view.bounds.width
             UIView.animate(withDuration: 0.5, delay: 0.3, options: [],
                            animations: {
@@ -116,34 +115,68 @@ class ViewController: UIViewController {
                            completion: nil
             )
         }
-       // animationSwipe()
+        
+        let upSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeUp(_ :)))
+        upSwipe.direction = .up
+        viewSwiped.addGestureRecognizer(upSwipe)
+        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeLeft(_:)))
+        leftSwipe.direction = .left
+        viewSwiped.addGestureRecognizer(leftSwipe)
     }
-   
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        animationSwipe()
-    }
-    
     
     // MARK - Animation and Share
-    func animationSwipe() {
-        if UIDevice.current.orientation.isLandscape {
-            let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
-            leftSwipe.direction = .left
-            labelSwipeView.addGestureRecognizer(leftSwipe)
-        }else if UIDevice.current.orientation.isPortrait {
-            let upSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
-            upSwipe.direction = .up
-            labelSwipeView.addGestureRecognizer(upSwipe)
+    //fucntion About animatin depending the orientation
+    func upSwipeAnimation() {
+        UIView.animate(withDuration: 0.5, delay: 0.4,
+                       options: [],
+                       animations: {
+                        self.viewSwiped.center.y -= self.view.bounds.height
+        },
+                       completion: nil
+        )
+    }
+    
+    @objc func handleSwipeUp(_ sender: UISwipeGestureRecognizer){
+        if UIDevice.current.orientation.isPortrait{
+            if (!IsLoaded()){
+                    alertIsNotLoaded()
+                }else {
+                    upSwipeAnimation()
+                    handleShare()
+                }
         }
     }
+    
+    func leftSwipeAnimation() {
+        UIView.animate(withDuration: 0.5, delay: 0.4,
+                       options: [],
+                       animations: {
+                        self.viewSwiped.center.x -= self.view.bounds.width
+        },
+                       completion: nil
+        )
+    }
+    
+    @objc func handleSwipeLeft(_ sender: UISwipeGestureRecognizer){
+        if UIDevice.current.orientation.isLandscape{
+                if (!IsLoaded()){
+                    alertIsNotLoaded()
+                }else {
+                    leftSwipeAnimation()
+                    handleShare()
+                }
+            }
+            
+        }
     
     // function to return viewSwipe at the original position
     func AnimationReturnToIdentiy(){
         UIView.animate(withDuration: 0.5, delay: 0.3, options: [], animations: {
-            self.viewSwiped.center.x += self.view.bounds.width
+            self.viewSwiped.center.y += self.view.bounds.height
         }, completion: nil)
     }
+    
+    
     
     func alertIsNotLoaded() {
         let alert = UIAlertController(title: "Pas si vite!", message: "Toutes les photos ne sont pas chargées", preferredStyle: .alert)
@@ -152,40 +185,11 @@ class ViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
-    // MARK - Swipe function and Share
-    //fucntion About animatin depending the orientation
-   func animationMode() {
-        if UIApplication.shared.statusBarOrientation.isLandscape {
-            UIView.animate(withDuration: 0.5, delay: 0.4,
-                           options: [],
-                           animations: {
-                            self.viewSwiped.center.x -= self.view.bounds.width
-            },
-                           completion: nil
-            )
-        }else{
-            UIView.animate(withDuration: 0.5, delay: 0.4,
-                           options: [],
-                           animations: {
-                            self.viewSwiped.center.y -= self.view.bounds.height
-            },
-                           completion: nil
-            )
-        }
+    @objc func handleSwipe(_ sender: UISwipeGestureRecognizer){
+        
     }
     
-    @objc func handleSwipe(_ sender: UISwipeGestureRecognizer){
-        if sender.state == .ended{
-            if (!IsLoaded()){
-              alertIsNotLoaded()
-            }else {
-                 animationMode()
-                  handleShare()
-            }
-            }
-        }
     
-  
     // function to share the content
     func handleShare() {
         UIGraphicsBeginImageContext(viewSwiped.bounds.size)
@@ -196,13 +200,17 @@ class ViewController: UIViewController {
         let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
         present(activityViewController, animated: true, completion: nil)
         // permet de revenir a l'etat initial si cancel selectionné. Voir chapitre des closure use completed
-   // activityViewController.completionWithItemsHandler
+        activityViewController.completionWithItemsHandler = { activity, completed, items, error in
+            if completed{
+                
+            }
+        }
         
     }
     
     // MARK - Verify if all images are uploaded
     func IsLoaded() -> Bool {
-        var isLoaded = true
+        var isLoaded = false
         if (checkMarkIsSelectedLeft) {
             if (imageLoaded1 && imageLoaded3 && imageLoaded4) {
                 isLoaded = true
@@ -227,8 +235,7 @@ class ViewController: UIViewController {
         IsImageLoaded(tag: lastTagButtonSelected)
     }
     
-    func IsImageLoaded(tag: Int) -> Bool {
-        let isImageLoaded = false
+    func IsImageLoaded(tag: Int) {
         if tag == 1{
             imageLoaded1 = true
         }else if tag == 2{
@@ -238,7 +245,6 @@ class ViewController: UIViewController {
         }else if tag == 4{
             imageLoaded4 = true
         }
-        return isImageLoaded
     }
     
     // MARK - Connection to the camera or library
