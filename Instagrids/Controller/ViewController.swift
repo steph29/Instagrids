@@ -43,7 +43,7 @@ class ViewController: UIViewController {
         checkMarkIsSelectedMiddle = false
         checkMarkIsSelectedRight = false
         checkMarkIsSelectedLeft = true
-        AnimationReturnToIdentiy()
+        viewSwiped.transform = .identity
         ItemsShowed(firstButton: checkMarkButtonLeft, firstImage: button3, thirdButton: button4)
         ItemsHidden(firstButton: checkMarkButtonMiddle, secondButton: checkMarkButtonRight, thirdButton: button2)
     }
@@ -53,7 +53,7 @@ class ViewController: UIViewController {
         checkMarkIsSelectedMiddle = true
         checkMarkIsSelectedRight = false
         checkMarkIsSelectedLeft = false
-        AnimationReturnToIdentiy()
+        viewSwiped.transform = .identity
         ItemsShowed(firstButton: checkMarkButtonMiddle, firstImage: button1, thirdButton: button2)
         ItemsHidden(firstButton: checkMarkButtonLeft, secondButton: checkMarkButtonRight, thirdButton: button4)
         
@@ -64,7 +64,7 @@ class ViewController: UIViewController {
         checkMarkIsSelectedMiddle = false
         checkMarkIsSelectedRight = true
         checkMarkIsSelectedLeft = false
-        AnimationReturnToIdentiy()
+        viewSwiped.transform = .identity
         checkMarkButtonLeft.imageView?.isHidden = true
         checkMarkButtonMiddle.imageView?.isHidden = true
         button4.isHidden = false
@@ -116,25 +116,71 @@ class ViewController: UIViewController {
             )
         }
         
-        let upSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeUp(_ :)))
+    /*   let upSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeUp(_ :)))
         upSwipe.direction = .up
         viewSwiped.addGestureRecognizer(upSwipe)
         let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeLeft(_:)))
         leftSwipe.direction = .left
-        viewSwiped.addGestureRecognizer(leftSwipe)
+        viewSwiped.addGestureRecognizer(leftSwipe)*/
     }
     
     // MARK - Animation and Share
     
+    
+    // UNE UATRE VERSION DU SWIPE
+    override func viewWillLayoutSubviews() {
+        let upSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
+        upSwipe.direction = .up
+        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
+        leftSwipe.direction = .left
+        
+        
+        if UIDevice.current.orientation.isPortrait{
+            view.addGestureRecognizer(upSwipe)
+            view.removeGestureRecognizer(leftSwipe)
+            viewSwiped.transform = .identity
+        }else{
+            view.addGestureRecognizer(leftSwipe)
+            view.removeGestureRecognizer(upSwipe)
+            viewSwiped.transform = .identity
+        }
+    }
+    
+    
+    @objc func handleSwipe(_ sender: UISwipeGestureRecognizer){
+        if (!IsLoaded()){
+            alertIsNotLoaded()
+        }else {
+            if UIDevice.current.orientation.isPortrait {
+            print("Je vais vers le haut")
+            swipeAnimation(translationX: 0, y: -view.bounds.height)
+            
+        } else if UIDevice.current.orientation.isLandscape{
+            print("Je vais vers la gauche")
+            swipeAnimation(translationX: -view.bounds.width, y: 0)
+            }
+            handleShare()
+        }
+       
+        
+    }
+    
+    func swipeAnimation(translationX x: CGFloat, y: CGFloat) {
+        UIView.animate(withDuration: 0.5, delay: 0.3, options: [], animations: {
+            self.viewSwiped.transform = CGAffineTransform(translationX: x, y: y)
+        }, completion: nil)
+    }
+    
+    /*
     //fucntion About animation depending the orientation
+    func swipeAnimation(translationX x: CGFloat, y: CGFloat) {
+        UIView.animate(withDuration: 0.5, delay: 0.4, options: [], animations: {
+            self.viewSwiped.transform = CGAffineTransform(translationX: x, y: -y)
+        }, completion: nil)
+    }
+    
     func upSwipeAnimation() {
-        UIView.animate(withDuration: 0.5, delay: 0.4,
-                       options: [],
-                       animations: {
-                        self.viewSwiped.center.y -= self.view.bounds.height
-        },
-                       completion: nil
-        )
+                        self.swipeAnimation(translationX: 0, y: -self.view.bounds.height)
     }
     
     @objc func handleSwipeUp(_ sender: UISwipeGestureRecognizer){
@@ -149,13 +195,7 @@ class ViewController: UIViewController {
     }
     
     func leftSwipeAnimation() {
-        UIView.animate(withDuration: 0.5, delay: 0.4,
-                       options: [],
-                       animations: {
-                        self.viewSwiped.center.x -= self.view.bounds.width
-        },
-                       completion: nil
-        )
+                self.swipeAnimation(translationX: -self.view.bounds.width, y: 0)
     }
     
     @objc func handleSwipeLeft(_ sender: UISwipeGestureRecognizer){
@@ -167,8 +207,7 @@ class ViewController: UIViewController {
                     handleShare()
                 }
             }
-            
-        }
+                    }
     
     // function to return viewSwipe at the original position
     // A RETRAVAILLER
@@ -177,7 +216,7 @@ class ViewController: UIViewController {
             self.viewSwiped.center.y += self.view.bounds.height
         }, completion: nil)
     }
-    
+    */
     
     // Alert if not all image are loaded
     func alertIsNotLoaded() {
@@ -186,10 +225,7 @@ class ViewController: UIViewController {
         alert.addAction(annuler)
         self.present(alert, animated: true, completion: nil)
     }
-    
-    @objc func handleSwipe(_ sender: UISwipeGestureRecognizer){
-        
-    }
+
     
     
     // function to share the content
@@ -200,15 +236,12 @@ class ViewController: UIViewController {
         UIGraphicsEndImageContext()
         
         let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
-        present(activityViewController, animated: true, completion: nil)
-        // permet de revenir a l'etat initial si cancel selectionné. Voir chapitre des closure use completed
-        activityViewController.completionWithItemsHandler = { activity, completed, items, error in
-            if completed{
-                
-            }
+        activityViewController.completionWithItemsHandler = {(activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
+            self.viewSwiped.transform = .identity
         }
         
-    }
+        present(activityViewController, animated: true, completion: nil)
+        }
     
     // MARK - Verify if all images are uploaded
     func IsLoaded() -> Bool {
@@ -272,6 +305,7 @@ class ViewController: UIViewController {
             self.presentWithSource(.photoLibrary)
         }
         let cancel = UIAlertAction(title: "Annuler", style: .cancel, handler: nil)
+        
         alerteActionSheet.addAction(camera)
         alerteActionSheet.addAction(gallery)
         alerteActionSheet.addAction(cancel)
