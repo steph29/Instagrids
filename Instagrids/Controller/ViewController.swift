@@ -43,7 +43,7 @@ class ViewController: UIViewController {
         checkMarkIsSelectedMiddle = false
         checkMarkIsSelectedRight = false
         checkMarkIsSelectedLeft = true
-        viewSwiped.transform = .identity
+        AnimationReturnToIdentiy()
         ItemsShowed(firstButton: checkMarkButtonLeft, firstImage: button3, thirdButton: button4)
         ItemsHidden(firstButton: checkMarkButtonMiddle, secondButton: checkMarkButtonRight, thirdButton: button2)
     }
@@ -53,7 +53,7 @@ class ViewController: UIViewController {
         checkMarkIsSelectedMiddle = true
         checkMarkIsSelectedRight = false
         checkMarkIsSelectedLeft = false
-        viewSwiped.transform = .identity
+        AnimationReturnToIdentiy()
         ItemsShowed(firstButton: checkMarkButtonMiddle, firstImage: button1, thirdButton: button2)
         ItemsHidden(firstButton: checkMarkButtonLeft, secondButton: checkMarkButtonRight, thirdButton: button4)
         
@@ -64,7 +64,7 @@ class ViewController: UIViewController {
         checkMarkIsSelectedMiddle = false
         checkMarkIsSelectedRight = true
         checkMarkIsSelectedLeft = false
-        viewSwiped.transform = .identity
+        AnimationReturnToIdentiy()
         checkMarkButtonLeft.imageView?.isHidden = true
         checkMarkButtonMiddle.imageView?.isHidden = true
         button4.isHidden = false
@@ -125,7 +125,8 @@ class ViewController: UIViewController {
     }
     
     // MARK - Animation and Share
-    //fucntion About animatin depending the orientation
+    
+    //fucntion About animation depending the orientation
     func upSwipeAnimation() {
         UIView.animate(withDuration: 0.5, delay: 0.4,
                        options: [],
@@ -170,6 +171,7 @@ class ViewController: UIViewController {
         }
     
     // function to return viewSwipe at the original position
+    // A RETRAVAILLER
     func AnimationReturnToIdentiy(){
         UIView.animate(withDuration: 0.5, delay: 0.3, options: [], animations: {
             self.viewSwiped.center.y += self.view.bounds.height
@@ -177,7 +179,7 @@ class ViewController: UIViewController {
     }
     
     
-    
+    // Alert if not all image are loaded
     func alertIsNotLoaded() {
         let alert = UIAlertController(title: "Pas si vite!", message: "Toutes les photos ne sont pas chargées", preferredStyle: .alert)
         let annuler = UIAlertAction(title: "Je comprends", style: .destructive, handler: nil)
