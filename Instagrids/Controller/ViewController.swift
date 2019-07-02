@@ -115,19 +115,10 @@ class ViewController: UIViewController {
                            completion: nil
             )
         }
-        
-    /*   let upSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeUp(_ :)))
-        upSwipe.direction = .up
-        viewSwiped.addGestureRecognizer(upSwipe)
-        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeLeft(_:)))
-        leftSwipe.direction = .left
-        viewSwiped.addGestureRecognizer(leftSwipe)*/
     }
     
     // MARK - Animation and Share
     
-    
-    // UNE UATRE VERSION DU SWIPE
     override func viewWillLayoutSubviews() {
         let upSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
         upSwipe.direction = .up
@@ -146,22 +137,21 @@ class ViewController: UIViewController {
         }
     }
     
-    
     @objc func handleSwipe(_ sender: UISwipeGestureRecognizer){
         if (!IsLoaded()){
             alertIsNotLoaded()
         }else {
             if UIDevice.current.orientation.isPortrait {
-            print("Je vais vers le haut")
-            swipeAnimation(translationX: 0, y: -view.bounds.height)
-            
-        } else if UIDevice.current.orientation.isLandscape{
-            print("Je vais vers la gauche")
-            swipeAnimation(translationX: -view.bounds.width, y: 0)
+                print("Je vais vers le haut")
+                swipeAnimation(translationX: 0, y: -view.bounds.height)
+                
+            } else if UIDevice.current.orientation.isLandscape{
+                print("Je vais vers la gauche")
+                swipeAnimation(translationX: -view.bounds.width, y: 0)
             }
             handleShare()
         }
-       
+        
         
     }
     
@@ -171,52 +161,6 @@ class ViewController: UIViewController {
         }, completion: nil)
     }
     
-    /*
-    //fucntion About animation depending the orientation
-    func swipeAnimation(translationX x: CGFloat, y: CGFloat) {
-        UIView.animate(withDuration: 0.5, delay: 0.4, options: [], animations: {
-            self.viewSwiped.transform = CGAffineTransform(translationX: x, y: -y)
-        }, completion: nil)
-    }
-    
-    func upSwipeAnimation() {
-                        self.swipeAnimation(translationX: 0, y: -self.view.bounds.height)
-    }
-    
-    @objc func handleSwipeUp(_ sender: UISwipeGestureRecognizer){
-        if UIDevice.current.orientation.isPortrait{
-            if (!IsLoaded()){
-                    alertIsNotLoaded()
-                }else {
-                    upSwipeAnimation()
-                    handleShare()
-                }
-        }
-    }
-    
-    func leftSwipeAnimation() {
-                self.swipeAnimation(translationX: -self.view.bounds.width, y: 0)
-    }
-    
-    @objc func handleSwipeLeft(_ sender: UISwipeGestureRecognizer){
-        if UIDevice.current.orientation.isLandscape{
-                if (!IsLoaded()){
-                    alertIsNotLoaded()
-                }else {
-                    leftSwipeAnimation()
-                    handleShare()
-                }
-            }
-                    }
-    
-    // function to return viewSwipe at the original position
-    // A RETRAVAILLER
-    func AnimationReturnToIdentiy(){
-        UIView.animate(withDuration: 0.5, delay: 0.3, options: [], animations: {
-            self.viewSwiped.center.y += self.view.bounds.height
-        }, completion: nil)
-    }
-    */
     
     // Alert if not all image are loaded
     func alertIsNotLoaded() {
@@ -225,7 +169,7 @@ class ViewController: UIViewController {
         alert.addAction(annuler)
         self.present(alert, animated: true, completion: nil)
     }
-
+    
     
     
     // function to share the content
@@ -241,7 +185,7 @@ class ViewController: UIViewController {
         }
         
         present(activityViewController, animated: true, completion: nil)
-        }
+    }
     
     // MARK - Verify if all images are uploaded
     func IsLoaded() -> Bool {
