@@ -155,6 +155,7 @@ class ViewController: UIViewController {
         
     }
     
+    // function creating the animation
     func swipeAnimation(translationX x: CGFloat, y: CGFloat) {
         UIView.animate(withDuration: 0.5, delay: 0.3, options: [], animations: {
             self.viewSwiped.transform = CGAffineTransform(translationX: x, y: y)
