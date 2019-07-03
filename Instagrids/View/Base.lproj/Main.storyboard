@@ -88,7 +88,7 @@
                             <stackView opaque="NO" contentMode="scaleAspectFit" distribution="equalSpacing" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="rX6-rc-uTq">
                                 <rect key="frame" x="37.5" y="767" width="339" height="80"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bw7-UZ-IVh">
+                                    <button opaque="NO" tag="11" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bw7-UZ-IVh">
                                         <rect key="frame" x="0.0" y="0.0" width="16" height="80"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="80" id="9Mo-lL-MNL"/>
@@ -108,10 +108,10 @@
                                             </mask>
                                         </variation>
                                         <connections>
-                                            <action selector="checkMarkLeft:" destination="BYZ-38-t0r" eventType="touchUpInside" id="MvT-TG-aNo"/>
+                                            <action selector="checkMark:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5vx-hB-6vq"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I2F-uZ-kOW">
+                                    <button opaque="NO" tag="12" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I2F-uZ-kOW">
                                         <rect key="frame" x="161.5" y="0.0" width="16" height="80"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="80" id="8fo-85-s6a"/>
@@ -129,10 +129,10 @@
                                             </mask>
                                         </variation>
                                         <connections>
-                                            <action selector="checkMarkMiddle:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fhn-Xd-ogr"/>
+                                            <action selector="checkMark:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eHB-QU-Vqy"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AIa-j2-xwJ">
+                                    <button opaque="NO" tag="13" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AIa-j2-xwJ">
                                         <rect key="frame" x="323" y="0.0" width="16" height="80"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="80" id="1Ym-7l-WIs"/>
@@ -151,7 +151,7 @@
                                             </mask>
                                         </variation>
                                         <connections>
-                                            <action selector="checkMarkRight:" destination="BYZ-38-t0r" eventType="touchUpInside" id="69L-aL-FFo"/>
+                                            <action selector="checkMark:" destination="BYZ-38-t0r" eventType="touchUpInside" id="awA-vc-gp8"/>
                                         </connections>
                                     </button>
                                 </subviews>

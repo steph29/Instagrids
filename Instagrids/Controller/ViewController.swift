@@ -36,41 +36,44 @@ class ViewController: UIViewController {
     var checkMarkIsSelectedLeft = false // Boolean concerning the state of the selection of the button
     var checkMarkIsSelectedMiddle = false // Boolean concerning the state of the selection of the button
     var checkMarkIsSelectedRight = false // Boolean concerning the state of the selection of the button
+   
+   
     
     // MARK - defined checkMarkButton action
     // function for the left checkMark Button
-    @IBAction func checkMarkLeft(_ sender: Any) {
-        checkMarkIsSelectedMiddle = false
-        checkMarkIsSelectedRight = false
-        checkMarkIsSelectedLeft = true
-        viewSwiped.transform = .identity
-        ItemsShowed(firstButton: checkMarkButtonLeft, firstImage: button3, thirdButton: button4)
-        ItemsHidden(firstButton: checkMarkButtonMiddle, secondButton: checkMarkButtonRight, thirdButton: button2)
-    }
-    
-    // function for the middle checkMark Button
-    @IBAction func checkMarkMiddle(_ sender: Any) {
-        checkMarkIsSelectedMiddle = true
-        checkMarkIsSelectedRight = false
-        checkMarkIsSelectedLeft = false
-        viewSwiped.transform = .identity
-        ItemsShowed(firstButton: checkMarkButtonMiddle, firstImage: button1, thirdButton: button2)
-        ItemsHidden(firstButton: checkMarkButtonLeft, secondButton: checkMarkButtonRight, thirdButton: button4)
+    @IBAction func checkMark(_ sender: Any) {
+        let buttonUsed = sender as! UIButton
+        print(buttonUsed.tag)
+        switch buttonUsed.tag {
+        case 11:
+            checkMarkIsSelectedMiddle = false
+            checkMarkIsSelectedRight = false
+            checkMarkIsSelectedLeft = true
+            viewSwiped.transform = .identity
+            ItemsShowed(firstButton: checkMarkButtonLeft, firstImage: button3, thirdButton: button4)
+            ItemsHidden(firstButton: checkMarkButtonMiddle, secondButton: checkMarkButtonRight, thirdButton: button2)
+        case 12:
+            checkMarkIsSelectedMiddle = true
+            checkMarkIsSelectedRight = false
+            checkMarkIsSelectedLeft = false
+            viewSwiped.transform = .identity
+            ItemsShowed(firstButton: checkMarkButtonMiddle, firstImage: button1, thirdButton: button2)
+            ItemsHidden(firstButton: checkMarkButtonLeft, secondButton: checkMarkButtonRight, thirdButton: button4)
+        case 13:
+            checkMarkIsSelectedMiddle = false
+            checkMarkIsSelectedRight = true
+            checkMarkIsSelectedLeft = false
+            viewSwiped.transform = .identity
+            checkMarkButtonLeft.imageView?.isHidden = true
+            checkMarkButtonMiddle.imageView?.isHidden = true
+            button4.isHidden = false
+            button3.isHidden = false
+            button1.isHidden = false
+            button2.isHidden = false
+        default:
+            break
+        }
         
-    }
-    
-    // function for the right checkMark Button
-    @IBAction func checkMarkRight(_ sender: Any) {
-        checkMarkIsSelectedMiddle = false
-        checkMarkIsSelectedRight = true
-        checkMarkIsSelectedLeft = false
-        viewSwiped.transform = .identity
-        checkMarkButtonLeft.imageView?.isHidden = true
-        checkMarkButtonMiddle.imageView?.isHidden = true
-        button4.isHidden = false
-        button3.isHidden = false
-        button1.isHidden = false
-        button2.isHidden = false
         
     }
     
@@ -100,7 +103,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        checkMarkLeft(self)
+        checkMark(checkMarkButtonLeft)
         imagePicker.delegate = self
         imagePicker.allowsEditing = false
         UIView.animate(withDuration: 0.5) {
@@ -120,21 +123,20 @@ class ViewController: UIViewController {
     // MARK - Animation and Share
     
     override func viewWillLayoutSubviews() {
-        let upSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
-        upSwipe.direction = .up
-        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
-        leftSwipe.direction = .left
-        
-        
         if UIDevice.current.orientation.isPortrait{
-            view.addGestureRecognizer(upSwipe)
-            view.removeGestureRecognizer(leftSwipe)
+            let upSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
+            upSwipe.direction = .up
+            viewSwiped.gestureRecognizers?.forEach(viewSwiped.removeGestureRecognizer)
+            viewSwiped.addGestureRecognizer(upSwipe)
             viewSwiped.transform = .identity
         }else{
-            view.addGestureRecognizer(leftSwipe)
-            view.removeGestureRecognizer(upSwipe)
+            let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
+            leftSwipe.direction = .left
+            viewSwiped.gestureRecognizers?.forEach(viewSwiped.removeGestureRecognizer)
+            viewSwiped.addGestureRecognizer(leftSwipe)
             viewSwiped.transform = .identity
         }
+        
     }
     
     @objc func handleSwipe(_ sender: UISwipeGestureRecognizer){
@@ -142,11 +144,9 @@ class ViewController: UIViewController {
             alertIsNotLoaded()
         }else {
             if UIDevice.current.orientation.isPortrait {
-                print("Je vais vers le haut")
                 swipeAnimation(translationX: 0, y: -view.bounds.height)
                 
             } else if UIDevice.current.orientation.isLandscape{
-                print("Je vais vers la gauche")
                 swipeAnimation(translationX: -view.bounds.width, y: 0)
             }
             handleShare()
