@@ -41,29 +41,27 @@ class ViewController: UIViewController {
     
     // MARK - defined checkMarkButton action
     // function for the left checkMark Button
+   
     @IBAction func checkMark(_ sender: Any) {
         let buttonUsed = sender as! UIButton
         print(buttonUsed.tag)
         switch buttonUsed.tag {
         case 11:
-            checkMarkIsSelectedMiddle = false
-            checkMarkIsSelectedRight = false
-            checkMarkIsSelectedLeft = true
-            viewSwiped.transform = .identity
+           checkMarkIsSelectedLeft = true
+           checkMarkIsSelectedMiddle = false
+           checkMarkIsSelectedRight = false
             ItemsShowed(firstButton: checkMarkButtonLeft, firstImage: button3, thirdButton: button4)
             ItemsHidden(firstButton: checkMarkButtonMiddle, secondButton: checkMarkButtonRight, thirdButton: button2)
         case 12:
+            checkMarkIsSelectedLeft = false
             checkMarkIsSelectedMiddle = true
             checkMarkIsSelectedRight = false
-            checkMarkIsSelectedLeft = false
-            viewSwiped.transform = .identity
             ItemsShowed(firstButton: checkMarkButtonMiddle, firstImage: button1, thirdButton: button2)
             ItemsHidden(firstButton: checkMarkButtonLeft, secondButton: checkMarkButtonRight, thirdButton: button4)
         case 13:
+            checkMarkIsSelectedLeft = false
             checkMarkIsSelectedMiddle = false
             checkMarkIsSelectedRight = true
-            checkMarkIsSelectedLeft = false
-            viewSwiped.transform = .identity
             checkMarkButtonLeft.imageView?.isHidden = true
             checkMarkButtonMiddle.imageView?.isHidden = true
             button4.isHidden = false
