@@ -40,7 +40,7 @@ class ViewController: UIViewController {
    
     
     // MARK - defined checkMarkButton action
-    // function for the left checkMark Button
+    // function for the checkMark Button
    
     @IBAction func checkMark(_ sender: Any) {
         let buttonUsed = sender as! UIButton
@@ -119,7 +119,7 @@ class ViewController: UIViewController {
     }
     
     // MARK - Animation and Share
-    
+    // function about the gesture in landscape or portrait orientation
     override func viewWillLayoutSubviews() {
         if UIDevice.current.orientation.isPortrait{
             let upSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
@@ -137,6 +137,7 @@ class ViewController: UIViewController {
         
     }
     
+    // Swipe animation
     @objc func handleSwipe(_ sender: UISwipeGestureRecognizer){
         if (!IsLoaded()){
             alertIsNotLoaded()
