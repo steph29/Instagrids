@@ -24,9 +24,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var checkMarkButtonLeft: UIButton!
     @IBOutlet weak var checkMarkButtonMiddle: UIButton!
     @IBOutlet weak var checkMarkButtonRight: UIButton!
-    // outlet of stackView
-    @IBOutlet weak var squareLowStackView: UIStackView!
-    @IBOutlet weak var squareHighStackView: UIStackView!
+
     var imagePicker = UIImagePickerController() // image picking on librairie or on camera
     var lastTagButtonSelected = Int() // Tag of the button selected
     var imageLoaded1 = false // image from square High Left
@@ -40,28 +38,28 @@ class ViewController: UIViewController {
    
     
     // MARK - defined checkMarkButton action
-    // function for the checkMark Button
    
+    func upDateSelectedButton(firstButtonState: Bool, secondButtonState: Bool, thridButtonState: Bool) {
+        checkMarkIsSelectedLeft = firstButtonState
+        checkMarkIsSelectedMiddle = secondButtonState
+        checkMarkIsSelectedRight = thridButtonState
+    }
+  
+     // function for the checkMark Button
     @IBAction func checkMark(_ sender: Any) {
         let buttonUsed = sender as! UIButton
         print(buttonUsed.tag)
         switch buttonUsed.tag {
         case 11:
-           checkMarkIsSelectedLeft = true
-           checkMarkIsSelectedMiddle = false
-           checkMarkIsSelectedRight = false
+           upDateSelectedButton(firstButtonState: true, secondButtonState: false, thridButtonState: false)
             ItemsShowed(firstButton: checkMarkButtonLeft, firstImage: button3, thirdButton: button4)
             ItemsHidden(firstButton: checkMarkButtonMiddle, secondButton: checkMarkButtonRight, thirdButton: button2)
         case 12:
-            checkMarkIsSelectedLeft = false
-            checkMarkIsSelectedMiddle = true
-            checkMarkIsSelectedRight = false
+            upDateSelectedButton(firstButtonState: false, secondButtonState: true, thridButtonState: false)
             ItemsShowed(firstButton: checkMarkButtonMiddle, firstImage: button1, thirdButton: button2)
             ItemsHidden(firstButton: checkMarkButtonLeft, secondButton: checkMarkButtonRight, thirdButton: button4)
         case 13:
-            checkMarkIsSelectedLeft = false
-            checkMarkIsSelectedMiddle = false
-            checkMarkIsSelectedRight = true
+           upDateSelectedButton(firstButtonState: false, secondButtonState: false, thridButtonState: true)
             checkMarkButtonLeft.imageView?.isHidden = true
             checkMarkButtonMiddle.imageView?.isHidden = true
             button4.isHidden = false
@@ -72,20 +70,9 @@ class ViewController: UIViewController {
             break
         }
         
-        
     }
     
     // Mark - function to change the layout of the images
-    private func StackViewShowed(firstStackView: UIStackView, secondStackView: UIStackView){
-        firstStackView.isHidden = false
-        firstStackView.isHidden = false
-    }
-    
-    private func StackViewHidden(firstStackView: UIStackView, secondStackView: UIStackView) {
-        firstStackView.isHidden = true
-        firstStackView.isHidden = true
-        
-    }
     private func ItemsShowed(firstButton: UIButton,  firstImage: UIView, thirdButton: UIButton){
         firstButton.imageView?.isHidden = false
         firstImage.isHidden = false
@@ -120,19 +107,21 @@ class ViewController: UIViewController {
     
     // MARK - Animation and Share
     // function about the gesture in landscape or portrait orientation
+    func gestureAnimation(gestureRecognizer: UIGestureRecognizer) {
+        viewSwiped.gestureRecognizers?.forEach(viewSwiped.removeGestureRecognizer)
+        viewSwiped.addGestureRecognizer(gestureRecognizer)
+        viewSwiped.transform = .identity
+    }
+    
     override func viewWillLayoutSubviews() {
         if UIDevice.current.orientation.isPortrait{
             let upSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
             upSwipe.direction = .up
-            viewSwiped.gestureRecognizers?.forEach(viewSwiped.removeGestureRecognizer)
-            viewSwiped.addGestureRecognizer(upSwipe)
-            viewSwiped.transform = .identity
+           gestureAnimation(gestureRecognizer: upSwipe)
         }else{
             let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
             leftSwipe.direction = .left
-            viewSwiped.gestureRecognizers?.forEach(viewSwiped.removeGestureRecognizer)
-            viewSwiped.addGestureRecognizer(leftSwipe)
-            viewSwiped.transform = .identity
+            gestureAnimation(gestureRecognizer: leftSwipe)
         }
         
     }
@@ -233,7 +222,7 @@ class ViewController: UIViewController {
     }
     
     func capturePicture() {
-        let alerteActionSheet = UIAlertController(title: "Prendre un photo", message: "Choisissez le média", preferredStyle: .actionSheet)
+        let alerteActionSheet = UIAlertController(title: "Prendre une photo", message: "Choisissez le média", preferredStyle: .actionSheet)
         let camera = UIAlertAction(title: "Appareil photo", style: .default) { (action) in
             if UIImagePickerController.isSourceTypeAvailable(.camera) {
                 self.presentWithSource(.camera)
@@ -273,14 +262,12 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let buttonToModify = self.view.viewWithTag(lastTagButtonSelected) as! UIButton
         if let edite = info[.editedImage] as? UIImage {
-            buttonToModify.setImage(edite, for: .normal)
-            buttonToModify.imageView!.contentMode = .scaleAspectFill
-            buttonToModify.imageView!.layer.masksToBounds = true
+            buttonToModify.setImage(edite, for: .normal)     
         } else if let originale = info[.originalImage] as? UIImage {
             buttonToModify.setImage(originale, for: .normal)
-            buttonToModify.imageView!.contentMode = .scaleAspectFill
-            buttonToModify.imageView!.layer.masksToBounds = true
         }
+        buttonToModify.imageView!.contentMode = .scaleAspectFill
+        buttonToModify.imageView!.layer.masksToBounds = true
         dismiss(animated: true, completion: nil)
     }
     
