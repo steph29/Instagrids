@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina6_1" orientation="portrait">
+    <device id="retina6_1" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -20,41 +20,49 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Instagrids" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="GpO-rZ-1UO">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="896" height="414"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <stackView opaque="NO" multipleTouchEnabled="YES" contentMode="scaleAspectFit" axis="vertical" distribution="equalSpacing" alignment="center" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="d4g-Ia-oI6">
-                                <rect key="frame" x="133" y="134" width="148" height="44"/>
+                            <stackView opaque="NO" multipleTouchEnabled="YES" contentMode="scaleAspectFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="d4g-Ia-oI6">
+                                <rect key="frame" x="52" y="172" width="141.5" height="70"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="&lt;{:linearEase;0,182,116,12,22,450,1;10,182,116,12,22,450,0;}" translatesAutoresizingMaskIntoConstraints="NO" id="xxn-iE-a8L">
-                                        <rect key="frame" x="66.5" y="0.0" width="15" height="10"/>
+                                        <rect key="frame" x="66" y="0.0" width="10" height="10"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="10" id="y0y-Og-kla"/>
                                         </constraints>
                                         <variation key="heightClass=compact" image="&lt;{:linearEase;0,182,116,12,22,450,1;10,182,116,12,22,450,0;} Copy"/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2RK-dY-yGp">
-                                        <rect key="frame" x="0.0" y="17" width="148" height="27"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="2RK-dY-yGp" secondAttribute="height" multiplier="148:27" id="SH0-yc-OhG"/>
-                                        </constraints>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="middleTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="2RK-dY-yGp">
+                                        <rect key="frame" x="0.0" y="17" width="141.5" height="53"/>
                                         <attributedString key="attributedText">
                                             <fragment content="Swipe up to share">
                                                 <attributes>
                                                     <color key="NSColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <font key="NSFont" size="17" name="HelveticaNeue"/>
-                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="truncatingTail" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                 </attributes>
                                             </fragment>
                                         </attributedString>
                                         <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <variation key="widthClass=regular">
+                                            <attributedString key="attributedText">
+                                                <fragment content="Swipe left to share">
+                                                    <attributes>
+                                                        <color key="NSColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <font key="NSFont" size="17" name="HelveticaNeue"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="truncatingTail" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                        </variation>
                                         <variation key="heightClass=compact-widthClass=compact">
                                             <attributedString key="attributedText">
                                                 <fragment content="Swipe left to share">
                                                     <attributes>
-                                                        <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <font key="NSFont" size="17" name=".AppleSystemUIFont"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                        <font key="NSFont" size="17" name="HelveticaNeue"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="truncatingTail" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                     </attributes>
                                                 </fragment>
                                             </attributedString>
@@ -63,30 +71,40 @@
                                 </subviews>
                                 <gestureRecognizers/>
                                 <constraints>
-                                    <constraint firstItem="2RK-dY-yGp" firstAttribute="leading" secondItem="d4g-Ia-oI6" secondAttribute="leading" id="Gcx-DG-s3s"/>
-                                    <constraint firstAttribute="trailing" secondItem="2RK-dY-yGp" secondAttribute="trailing" id="bzD-o4-Prm"/>
-                                    <constraint firstAttribute="height" constant="48" id="glD-Ig-YW9"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="135" id="hjj-xV-z1I"/>
-                                    <constraint firstItem="2RK-dY-yGp" firstAttribute="top" secondItem="xxn-iE-a8L" secondAttribute="bottom" constant="7" id="sN4-ef-y7q"/>
+                                    <constraint firstItem="2RK-dY-yGp" firstAttribute="trailing" secondItem="d4g-Ia-oI6" secondAttribute="trailingMargin" id="MZ8-jj-xjC"/>
+                                    <constraint firstItem="2RK-dY-yGp" firstAttribute="bottom" secondItem="d4g-Ia-oI6" secondAttribute="bottomMargin" id="XzO-Ic-myj"/>
+                                    <constraint firstItem="2RK-dY-yGp" firstAttribute="top" secondItem="xxn-iE-a8L" secondAttribute="bottom" constant="7" id="ab9-bg-a5g"/>
+                                    <constraint firstItem="2RK-dY-yGp" firstAttribute="leading" secondItem="d4g-Ia-oI6" secondAttribute="leadingMargin" id="emj-eU-wvL"/>
+                                    <constraint firstAttribute="height" constant="70" id="glD-Ig-YW9"/>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="135" id="hjj-xV-z1I">
+                                        <variation key="heightClass=compact" constant="150"/>
+                                    </constraint>
                                     <constraint firstAttribute="width" constant="148" id="t6e-SN-VzS"/>
-                                    <constraint firstAttribute="bottom" secondItem="2RK-dY-yGp" secondAttribute="bottom" id="vqP-Fb-deT"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="glD-Ig-YW9"/>
                                         <exclude reference="hjj-xV-z1I"/>
+                                        <exclude reference="MZ8-jj-xjC"/>
+                                        <exclude reference="XzO-Ic-myj"/>
+                                        <exclude reference="ab9-bg-a5g"/>
+                                        <exclude reference="emj-eU-wvL"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=compact">
                                     <mask key="constraints">
                                         <include reference="glD-Ig-YW9"/>
-                                        <include reference="hjj-xV-z1I"/>
+                                        <exclude reference="hjj-xV-z1I"/>
                                         <exclude reference="t6e-SN-VzS"/>
+                                        <include reference="MZ8-jj-xjC"/>
+                                        <include reference="XzO-Ic-myj"/>
+                                        <include reference="ab9-bg-a5g"/>
+                                        <include reference="emj-eU-wvL"/>
                                     </mask>
                                 </variation>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleAspectFit" distribution="equalSpacing" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="rX6-rc-uTq">
-                                <rect key="frame" x="37.5" y="767" width="339" height="80"/>
+                                <rect key="frame" x="752" y="57" width="80" height="300"/>
                                 <subviews>
                                     <button opaque="NO" tag="11" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bw7-UZ-IVh">
                                         <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
@@ -112,7 +130,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="12" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I2F-uZ-kOW">
-                                        <rect key="frame" x="129.5" y="0.0" width="80" height="80"/>
+                                        <rect key="frame" x="0.0" y="110" width="80" height="80"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="80" id="8fo-85-s6a"/>
                                             <constraint firstAttribute="width" secondItem="I2F-uZ-kOW" secondAttribute="height" multiplier="1:1" id="uRO-HC-VLa"/>
@@ -133,7 +151,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="13" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AIa-j2-xwJ">
-                                        <rect key="frame" x="259" y="0.0" width="80" height="80"/>
+                                        <rect key="frame" x="0.0" y="220" width="80" height="80"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="80" id="1Ym-7l-WIs"/>
                                             <constraint firstAttribute="width" secondItem="AIa-j2-xwJ" secondAttribute="height" multiplier="1:1" id="H49-Wj-amY"/>
@@ -221,7 +239,7 @@
                                 </variation>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Instagrid" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IC1-xj-ZpE">
-                                <rect key="frame" x="20" y="59" width="374" height="39"/>
+                                <rect key="frame" x="64" y="10" width="768" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="39" id="GbS-le-apY"/>
                                     <constraint firstAttribute="height" constant="39" id="R1K-VC-CBV">
@@ -243,7 +261,7 @@
                                 </variation>
                             </label>
                             <view contentMode="scaleAspectFit" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="uwZ-ma-xOC">
-                                <rect key="frame" x="57" y="298" width="300" height="300"/>
+                                <rect key="frame" x="298" y="57" width="300" height="300"/>
                                 <subviews>
                                     <view multipleTouchEnabled="YES" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="X8L-b5-j5P">
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
@@ -349,6 +367,8 @@
                                     <constraint firstAttribute="width" secondItem="uwZ-ma-xOC" secondAttribute="height" multiplier="1:1" id="Xhy-xy-erx"/>
                                     <constraint firstItem="X8L-b5-j5P" firstAttribute="top" secondItem="uwZ-ma-xOC" secondAttribute="top" id="apd-go-mEX"/>
                                     <constraint firstItem="X8L-b5-j5P" firstAttribute="top" secondItem="uwZ-ma-xOC" secondAttribute="top" id="bDX-5M-r0U"/>
+                                    <constraint firstItem="X8L-b5-j5P" firstAttribute="centerX" secondItem="uwZ-ma-xOC" secondAttribute="centerX" id="bud-zo-RR4"/>
+                                    <constraint firstItem="X8L-b5-j5P" firstAttribute="centerY" secondItem="uwZ-ma-xOC" secondAttribute="centerY" id="f1i-pt-nSw"/>
                                     <constraint firstAttribute="width" constant="300" id="i0j-K0-fEd"/>
                                     <constraint firstAttribute="width" constant="300" id="oA9-Y6-ALn"/>
                                     <constraint firstItem="X8L-b5-j5P" firstAttribute="leading" secondItem="uwZ-ma-xOC" secondAttribute="leading" id="oRO-Rd-uEz"/>
@@ -423,6 +443,7 @@
                             <constraint firstItem="d4g-Ia-oI6" firstAttribute="centerY" secondItem="GpO-rZ-1UO" secondAttribute="centerY" id="qIh-Ne-FBS"/>
                             <constraint firstItem="psc-Lz-lAS" firstAttribute="bottom" secondItem="rX6-rc-uTq" secondAttribute="bottom" constant="15" id="ueb-m6-xsI"/>
                             <constraint firstItem="psc-Lz-lAS" firstAttribute="bottom" secondItem="rX6-rc-uTq" secondAttribute="bottom" constant="-20" id="vua-Dg-Cyn"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="d4g-Ia-oI6" secondAttribute="trailing" constant="450" id="web-j3-xGU"/>
                             <constraint firstItem="rX6-rc-uTq" firstAttribute="centerY" secondItem="GpO-rZ-1UO" secondAttribute="centerY" id="xxh-71-QW1"/>
                             <constraint firstItem="rX6-rc-uTq" firstAttribute="top" secondItem="IC1-xj-ZpE" secondAttribute="bottom" id="zfz-S6-ABg"/>
                         </constraints>
@@ -437,6 +458,7 @@
                                 <exclude reference="Ag7-F2-RFf"/>
                                 <exclude reference="hTb-tU-u6t"/>
                                 <exclude reference="qIh-Ne-FBS"/>
+                                <exclude reference="web-j3-xGU"/>
                                 <exclude reference="5Xc-v3-InX"/>
                                 <exclude reference="mDH-4n-EAJ"/>
                                 <exclude reference="nQo-Sc-mPB"/>
@@ -464,6 +486,7 @@
                                 <exclude reference="NGJ-Z2-qei"/>
                                 <include reference="hTb-tU-u6t"/>
                                 <include reference="qIh-Ne-FBS"/>
+                                <include reference="web-j3-xGU"/>
                                 <exclude reference="5Xc-v3-InX"/>
                                 <exclude reference="Yiw-aP-rjS"/>
                                 <exclude reference="mDH-4n-EAJ"/>
